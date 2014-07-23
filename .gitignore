@@ -1,3 +1,7 @@
-node_modules
+/node_modules
+.sass-cache/
+
+# OSX 
+*.DS_Store
 
 app/creds.coffee
