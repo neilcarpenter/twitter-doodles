@@ -23,6 +23,11 @@
   "bugs": {
     "url": ""
   },
+  "browserify": {
+    "transform": [
+      "coffeeify"
+    ]
+  },
   "dependencies": {
     "coffee-script"    : "~1.7.1",
     "express"          : "~4.1.2",
