@@ -1,3 +1,5 @@
+AbstractView = require './AbstractView'
+
 class AbstractViewPage extends AbstractView
 
 	_shown     : false
@@ -11,7 +13,7 @@ class AbstractViewPage extends AbstractView
 		###
 		CHANGE HERE - 'page' views are always in DOM - to save having to re-initialise gmap events (PITA). No longer require :dispose method
 		###
-		@twd().appView.wrapper.addChild @
+		@TD().appView.wrapper.addChild @
 		@callChildrenAndSelf 'setListeners', 'on'
 
 		### replace with some proper transition if we can ###
@@ -28,7 +30,7 @@ class AbstractViewPage extends AbstractView
 		###
 		CHANGE HERE - 'page' views are always in DOM - to save having to re-initialise gmap events (PITA). No longer require :dispose method
 		###
-		@twd().appView.wrapper.remove @
+		@TD().appView.wrapper.remove @
 
 		# @callChildrenAndSelf 'setListeners', 'off'
 
@@ -50,3 +52,5 @@ class AbstractViewPage extends AbstractView
 		@_listening = setting
 
 		null
+
+module.exports = AbstractViewPage

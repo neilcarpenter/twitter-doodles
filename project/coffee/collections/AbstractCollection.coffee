@@ -1,5 +1,5 @@
 class AbstractCollection extends Backbone.Collection
 
-	twd : =>
+	TD : =>
 
-		return view.twd
+		return window.TD

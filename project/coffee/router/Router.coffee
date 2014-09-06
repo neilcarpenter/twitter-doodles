@@ -26,7 +26,7 @@ class Router extends Backbone.Router
 
 		if @FIRST_ROUTE then @FIRST_ROUTE = false
 
-		if !@area then @area = @twd().nav.sections.HOME
+		if !@area then @area = @TD().nav.sections.HOME
 
 		@trigger Router.EVENT_HASH_CHANGED, @area, @sub, @params
 
@@ -47,6 +47,8 @@ class Router extends Backbone.Router
 
 		null
 
-	twd : =>
+	TD : =>
 
-		return view.twd
+		return window.TD
+
+module.exports = Router

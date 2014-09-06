@@ -1,3 +1,5 @@
+AbstractView = require '../AbstractView'
+
 class Footer extends AbstractView
 
     template : 'site-footer'
@@ -5,8 +7,10 @@ class Footer extends AbstractView
     constructor: ->
 
         @templateVars = 
-        	desc : @twd().locale.get "footer_desc"
+        	desc : @TD().locale.get "footer_desc"
 
         super()
 
         return null
+
+module.exports = Footer

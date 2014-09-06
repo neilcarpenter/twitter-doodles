@@ -1,3 +1,6 @@
+AbstractView = require '../view/AbstractView'
+Router       = require './Router'
+
 class Nav extends AbstractView
 
     @EVENT_CHANGE_VIEW     : 'EVENT_CHANGE_VIEW'
@@ -12,7 +15,7 @@ class Nav extends AbstractView
 
     constructor: ->
 
-        @twd().router.on Router.EVENT_HASH_CHANGED, @changeView
+        @TD().router.on Router.EVENT_HASH_CHANGED, @changeView
 
         return false
 
@@ -40,7 +43,7 @@ class Nav extends AbstractView
             @trigger Nav.EVENT_CHANGE_VIEW, @previous, @current
             @trigger Nav.EVENT_CHANGE_SUB_VIEW, @current
 
-        if @twd().appView.modalManager.isOpen() then @twd().appView.modalManager.hideOpenModal()
+        if @TD().appView.modalManager.isOpen() then @TD().appView.modalManager.hideOpenModal()
 
         @setPageTitle area, sub
 
@@ -53,3 +56,5 @@ class Nav extends AbstractView
         if window.document.title isnt title then window.document.title = title
 
         null
+
+module.exports = Nav

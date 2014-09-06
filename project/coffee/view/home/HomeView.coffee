@@ -1,3 +1,5 @@
+AbstractViewPage = require '../AbstractViewPage'
+
 class HomeView extends AbstractViewPage
 
 	template : 'page-home'
@@ -5,7 +7,7 @@ class HomeView extends AbstractViewPage
 	constructor : ->
 
 		@templateVars = 
-			desc : @twd().locale.get "home_desc"
+			desc : @TD().locale.get "home_desc"
 
 		###
 
@@ -27,3 +29,5 @@ class HomeView extends AbstractViewPage
 		###
 
 		return null
+
+module.exports = HomeView

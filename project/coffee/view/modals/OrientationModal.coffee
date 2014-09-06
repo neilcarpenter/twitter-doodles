@@ -1,3 +1,5 @@
+AbstractModal = require './AbstractModal'
+
 class OrientationModal extends AbstractModal
 
 	name     : 'orientationModal'
@@ -20,7 +22,7 @@ class OrientationModal extends AbstractModal
 	hide : (stillLandscape=true) =>
 
 		@animateOut =>
-			@twd().appView.remove @
+			@TD().appView.remove @
 			if !stillLandscape then @cb?()
 
 		null
@@ -29,7 +31,7 @@ class OrientationModal extends AbstractModal
 
 		super
 
-		@twd().appView[setting] 'updateDims', @onUpdateDims
+		@TD().appView[setting] 'updateDims', @onUpdateDims
 		@$el[setting] 'touchend click', @hide
 
 		null
@@ -39,3 +41,5 @@ class OrientationModal extends AbstractModal
 		if dims.o is 'portrait' then @hide false
 
 		null
+
+module.exports = OrientationModal

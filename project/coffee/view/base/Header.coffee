@@ -1,3 +1,5 @@
+AbstractView = require '../AbstractView'
+
 class Header extends AbstractView
 
 	template : 'site-header'
@@ -5,14 +7,16 @@ class Header extends AbstractView
 	constructor : ->
 
 		@templateVars =
-			desc    : @twd().locale.get "header_desc"
+			desc    : @TD().locale.get "header_desc"
 			home    : 
 				label    : 'Go to homepage'
-				url      : @twd().BASE_PATH + '/' + @twd().nav.sections.HOME
+				url      : @TD().BASE_PATH + '/' + @TD().nav.sections.HOME
 			example : 
 				label    : 'Go to example page'
-				url      : @twd().BASE_PATH + '/' + @twd().nav.sections.EXAMPLE
+				url      : @TD().BASE_PATH + '/' + @TD().nav.sections.EXAMPLE
 
 		super()
 
 		return null
+
+module.exports = Header

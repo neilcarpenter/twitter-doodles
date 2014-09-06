@@ -1,3 +1,5 @@
+AbstractView = require '../AbstractView'
+
 class AbstractModal extends AbstractView
 
 	$window : null
@@ -12,7 +14,7 @@ class AbstractModal extends AbstractView
 
 		super()
 
-		@twd().appView.addChild @
+		@TD().appView.addChild @
 		@setListeners 'on'
 		@animateIn()
 
@@ -20,14 +22,14 @@ class AbstractModal extends AbstractView
 
 	hide : =>
 
-		@animateOut => @twd().appView.remove @
+		@animateOut => @TD().appView.remove @
 
 		null
 
 	dispose : =>
 
 		@setListeners 'off'
-		@twd().appView.modalManager.modals[@name].view = null
+		@TD().appView.modalManager.modals[@name].view = null
 
 		null
 
@@ -65,3 +67,5 @@ class AbstractModal extends AbstractView
 		@hide()
 
 		null
+
+module.exports = AbstractModal

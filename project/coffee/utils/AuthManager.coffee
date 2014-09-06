@@ -1,3 +1,7 @@
+AbstractData = require '../data/AbstractData'
+Facebook     = require '../utils/Facebook'
+GooglePlus   = require '../utils/GooglePlus'
+
 class AuthManager extends AbstractData
 
 	userData  : null
@@ -9,7 +13,7 @@ class AuthManager extends AbstractData
 
 	constructor : ->
 
-		@userData  = @twd().appData.USER
+		@userData  = @TD().appData.USER
 
 		super()
 
@@ -83,3 +87,5 @@ class AuthManager extends AbstractData
 		# console.log "hideLoader"
 
 		null
+
+module.exports = AuthManager

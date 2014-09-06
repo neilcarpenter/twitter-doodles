@@ -1,3 +1,10 @@
+AbstractView = require './view/AbstractView'
+Preloader    = require './view/base/Preloader'
+Header       = require './view/base/Header'
+Wrapper      = require './view/base/Wrapper'
+Footer       = require './view/base/Footer'
+ModalManager = require './view/modals/_ModalManager'
+
 class AppView extends AbstractView
 
 	template : 'main'
@@ -95,7 +102,7 @@ class AppView extends AbstractView
 
 		@trigger 'start'
 
-		@twd().router.start()
+		@TD().router.start()
 
 		@preloader.hide()
 
@@ -134,12 +141,12 @@ class AppView extends AbstractView
 
 	navigateToUrl : ( href, e = null ) =>
 
-		route   = if href.match(@twd().BASE_PATH) then href.split(@twd().BASE_PATH)[1] else href
+		route   = if href.match(@TD().BASE_PATH) then href.split(@TD().BASE_PATH)[1] else href
 		section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
-		if @twd().nav.getSection section
+		if @TD().nav.getSection section
 			e?.preventDefault()
-			@twd().router.navigateTo route
+			@TD().router.navigateTo route
 		else 
 			@handleExternalLink href
 
@@ -154,3 +161,5 @@ class AppView extends AbstractView
 		###
 
 		null
+
+module.exports = AppView

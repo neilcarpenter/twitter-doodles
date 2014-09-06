@@ -6,6 +6,8 @@ class AbstractData
 
 		return null
 
-	twd : =>
+	TD : =>
 
-        return view.twd
+		return window.TD
+
+module.exports = AbstractData

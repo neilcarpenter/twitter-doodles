@@ -1,5 +1,27 @@
 class AbstractModel extends Backbone.DeepModel
 
-	twd : =>
+	constructor : (attrs, option) ->
 
-		return view.twd
+		attrs = @_filterAttrs attrs
+
+		return Backbone.DeepModel.apply @, arguments
+
+	set : (attrs, options) ->
+
+		options or (options = {})
+
+		attrs = @_filterAttrs attrs
+
+		options.data = JSON.stringify attrs
+
+		return Backbone.DeepModel.prototype.set.call @, attrs, options
+
+	_filterAttrs : (attrs) =>
+
+		attrs
+
+	TD : =>
+
+		return window.TD
+
+module.exports = AbstractModel

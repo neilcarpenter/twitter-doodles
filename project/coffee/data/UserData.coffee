@@ -1,3 +1,9 @@
+AbstractData    = require './AbstractData'
+Requester       = require '../utils/Requester'
+API             = require './API'
+UserStatusModel = require '../models/core/UserStatusModel'
+UserInfoModel   = require '../models/core/UserInfoModel'
+
 class UserData extends AbstractData
 
 	status   : null
@@ -104,6 +110,8 @@ class UserData extends AbstractData
 
 	onLogoutDone : =>
 
-		window.location.href = @twd().BASE_PATH
+		window.location.href = @TD().BASE_PATH
 
 		null
+
+module.exports = UserData

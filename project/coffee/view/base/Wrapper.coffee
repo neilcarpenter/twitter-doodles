@@ -1,3 +1,8 @@
+AbstractView    = require '../AbstractView'
+HomeView        = require '../home/HomeView'
+ExamplePageView = require '../examplePage/ExamplePageView'
+Nav             = require '../../router/Nav'
+
 class Wrapper extends AbstractView
 
 	VIEW_TYPE_PAGE  : 'page'
@@ -13,8 +18,8 @@ class Wrapper extends AbstractView
 	constructor : ->
 
 		@views =
-			home        : classRef : HomeView,        route : @twd().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
-			quests      : classRef : ExamplePageView, route : @twd().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
+			home        : classRef : HomeView,        route : @TD().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
+			quests      : classRef : ExamplePageView, route : @TD().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
 
 		@createClasses()
 
@@ -47,13 +52,13 @@ class Wrapper extends AbstractView
 
 	init : =>
 
-		@twd().appView.on 'start', @start
+		@TD().appView.on 'start', @start
 
 		null
 
 	start : =>
 
-		@twd().appView.off 'start', @start
+		@TD().appView.off 'start', @start
 
 		@bindEvents()
 
@@ -61,8 +66,8 @@ class Wrapper extends AbstractView
 
 	bindEvents : =>
 
-		@twd().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
-		@twd().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
+		@TD().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
+		@TD().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
 
 		null
 
@@ -124,3 +129,5 @@ class Wrapper extends AbstractView
 			to.show()
 
 		null
+
+module.exports = Wrapper

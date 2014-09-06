@@ -1,3 +1,5 @@
+APIRouteModel = require '../models/core/APIRouteModel'
+
 class API
 
 	@model : new APIRouteModel
@@ -5,7 +7,7 @@ class API
 	@getContants : =>
 
 		### add more if we wanna use in API strings ###
-		BASE_PATH : @twd().BASE_PATH
+		BASE_PATH : @TD().BASE_PATH
 
 	@get : (name, vars) =>
 
@@ -18,6 +20,8 @@ class API
 			r = vals[b] or if typeof vals[b] is 'number' then vals[b].toString() else ''
 		(if typeof r is "string" or typeof r is "number" then r else a)
 
-	@twd : =>
+	@TD : =>
 
-		return view.twd
+		return window.TD
+
+module.exports = API

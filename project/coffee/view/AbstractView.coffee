@@ -11,7 +11,7 @@ class AbstractView extends Backbone.View
 		@children = []
 
 		if @template
-			tmpHTML = _.template @twd().templates.get @template
+			tmpHTML = _.template @TD().templates.get @template
 			@setElement tmpHTML @templateVars
 
 		@$el.attr 'id', @id if @id
@@ -178,6 +178,8 @@ class AbstractView extends Backbone.View
 
 		null
 
-	twd : =>
+	TD : =>
 
-		return view.twd
+		return window.TD
+
+module.exports = AbstractView

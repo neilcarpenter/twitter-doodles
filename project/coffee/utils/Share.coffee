@@ -8,7 +8,7 @@ class Share
 
     constructor : ->
 
-        @url = @twd().BASE_PATH
+        @url = @TD().BASE_PATH
 
         return null
 
@@ -62,7 +62,7 @@ class Share
 
         url   = encodeURIComponent(url or @url)
         if copy is ''
-            copy = @twd().locale.get 'seo_twitter_card_description'
+            copy = @TD().locale.get 'seo_twitter_card_description'
             
         descr = encodeURIComponent(copy)
 
@@ -86,6 +86,8 @@ class Share
 
         null
 
-    twd : =>
+    TD : =>
 
-        return view.twd
+        return window.TD
+
+module.exports = Share

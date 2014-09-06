@@ -1,3 +1,5 @@
+AbstractViewPage = require '../AbstractViewPage'
+
 class ExamplePageView extends AbstractViewPage
 
 	template : 'page-example'
@@ -5,7 +7,7 @@ class ExamplePageView extends AbstractViewPage
 	constructor : ->
 
 		@templateVars = 
-			desc : @twd().locale.get "example_desc"
+			desc : @TD().locale.get "example_desc"
 
 		###
 
@@ -27,3 +29,5 @@ class ExamplePageView extends AbstractViewPage
 		###
 
 		return null
+
+module.exports = ExamplePageView
