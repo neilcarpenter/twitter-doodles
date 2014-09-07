@@ -26,8 +26,7 @@
             <header id="site-header">
                 <i><%= desc %></i>
                 <ul>
-                    <li><a href="<%= home.url %>"><%= home.label %></a></li>
-                    <li><a href="<%= example.url %>"><%= example.label %></a></li>
+                    <li><button data-login>Login to twitter</button></a></li>
                 </ul>
             </header>
         ]]>

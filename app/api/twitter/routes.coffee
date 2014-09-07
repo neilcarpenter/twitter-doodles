@@ -4,9 +4,16 @@ bodyParser = require 'body-parser'
 
 getTweets = (req, res) ->
 
+	# DEBUG!!!
+	return res.json tweets : require './dummyData.json'
+
+	tweets   = []
+	today    = new Date()
+	monthAgo = new Date(today.getFullYear(), today.getMonth()-1, today.getDate())
+
 	params =
 		user_id          : req.body.user_id
-		count            : 5
+		count            : 50
 		include_entities : true
 
 	twit = new twitter
@@ -15,10 +22,31 @@ getTweets = (req, res) ->
 		access_token_key    : req.body.token
 		access_token_secret : req.body.tokenSecret
 
-	twit.get '/statuses/user_timeline.json', params, (data) ->
-		res.json tweets : data
+	callTwitter = (max_id=null) ->
+
+		if max_id then params.max_id = max_id
+		ret = false
+
+		twit.get '/statuses/user_timeline.json', params, (data) ->
+
+			# don't include reference tweet twice
+			if max_id then data.shift()
+
+			for tweet in data
+				if new Date(tweet.created_at) > monthAgo
+					tweets.push tweet
+				else
+					ret = true
+
+			if ret
+				res.json tweets : tweets
+			else
+				callTwitter data[data.length-1].id_str
+
+	callTwitter()
 
 setup = (app) ->
+
 	app.use bodyParser()
 
 	app.post '/api/twitter/getTweets', getTweets
