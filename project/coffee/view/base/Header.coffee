@@ -9,40 +9,36 @@ class Header extends AbstractView
 
 	constructor : ->
 
+		@userData = @TD().appData.user
+		@tmpl     = _.template @TD().templates.get @template
+
 		@templateVars =
 			desc : @TD().locale.get "header_desc"
 
+		@templateVars = $.extend @templateVars, @userData.info.toJSON(), @userData.status.toJSON()
+
 		super()
 
-		@setup()
+		@bindEvents()
 
 		return null
 
-	setup : =>
+	bindEvents : =>
 
-		window.$loginDfd = $.Deferred()
-		window.$loginDfd.done @loginCallback
-		window.$loginDfd.fail -> alert('there was an issue logging in...')
+		@userData.on @userData.EVENT_USER_LOGGED, @render
+
+		null
+
+	render : =>
+
+		vars = $.extend @templateVars, @userData.info.toJSON(), @userData.status.toJSON()
+		@$el.html @tmpl vars
 
 		null
 
 	onLoginClick : =>
 
-		url  = '/auth/twitter'
-		w    = 680
-		h    = 540
-		left = ( screen.availWidth  - w ) >> 1
-		top  = ( screen.availHeight - h ) >> 1
-		opts = 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left + ',location=0,menubar=0,scrollbars=0,status=0,toolbar=0,resizable=0'
-
-		window._loginWindow = window.open(url, 'loginWindow', opts)
-
-		null
-
-	loginCallback : (data) =>
-
-		window._userData = data
-		window._loginWindow.close()
+		@TD().appData.user.login()
 
 		null
 

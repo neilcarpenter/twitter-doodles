@@ -1,8 +1,9 @@
-AbstractData    = require './AbstractData'
-Requester       = require '../utils/Requester'
-API             = require './API'
-UserStatusModel = require '../models/core/UserStatusModel'
-UserInfoModel   = require '../models/core/UserInfoModel'
+AbstractData        = require './AbstractData'
+Requester           = require '../utils/Requester'
+API                 = require './API'
+UserStatusModel     = require '../models/core/UserStatusModel'
+UserInfoModel       = require '../models/core/UserInfoModel'
+RawTweetsCollection = require '../collections/tweets/RawTweetsCollection'
 
 class UserData extends AbstractData
 
@@ -13,8 +14,9 @@ class UserData extends AbstractData
 
 	constructor : ->
 
-		@status   = new UserStatusModel
-		@info     = new UserInfoModel
+		@status    = new UserStatusModel
+		@info      = new UserInfoModel
+		@tweetsRaw = new RawTweetsCollection
 
 		super()
 
@@ -25,6 +27,7 @@ class UserData extends AbstractData
 	bindEvents : =>
 
 		@status.on 'change:logged', @onLoggedChange
+		@on @EVENT_USER_LOGGED, @getTweets
 
 		null
 
@@ -36,57 +39,72 @@ class UserData extends AbstractData
 
 		null
 
-	register : (data) =>
-
-		r = Requester.request
-			url  : API.get('user.register')
-			type : "POST"
-			data : data
-
-		r.done @registerSuccess
-		r.fail @registerFail
-
-		r
-
-	registerSuccess : (res) =>
-
-		console.log "register successful -->", res
-
-		return res
-
-		null
-
-	registerFail : (res) =>
-
-		console.log "register fail -->", res
-
-		return res
-
-		null
-
 	login : (data) =>
 
-		r = Requester.request
-			url  : API.get('user.login')
-			type : "POST"
-			data : data
+		@setupLogin()
 
-		r.done @loginSuccess
-		r.fail @loginFail
+		url  = '/auth/twitter'
+		w    = 680
+		h    = 540
+		left = ( screen.availWidth  - w ) >> 1
+		top  = ( screen.availHeight - h ) >> 1
+		opts = 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left + ',location=0,menubar=0,scrollbars=0,status=0,toolbar=0,resizable=0'
 
-		r
+		window._loginWindow = window.open(url, 'loginWindow', opts)
 
-	loginSuccess : (res) =>
+		null
 
-		console.log "login successful -->", res
+	setupLogin : =>
 
-		return unless res.user
+		window.$loginDfd = $.Deferred()
+		window.$loginDfd.done @loginSuccess
+		window.$loginDfd.fail -> @loginFail
+
+		null
+
+	loginSuccess : (data) =>
+
+		console.log "login successful -->", data
+
+		@info.set data
+		window._loginWindow.close()
+
+		@status.set 'logged', true
 
 		null
 
 	loginFail : (res) =>
 
 		console.log "failed to log in... -->", res
+
+		null
+
+	getTweets : =>
+
+		data =
+			user_id : @info.get('id')
+			token : @info.get('token')
+			tokenSecret : @info.get('tokenSecret')
+
+		r = Requester.request
+			url  : API.get('getTweets')
+			type : "POST"
+			data : data
+
+		r.done @getTweetsSuccess
+		r.fail @getTweetsFail
+
+		r
+
+	getTweetsSuccess : (data) =>
+
+		@tweetsRaw.add data.tweets
+
+		null
+
+	getTweetsFail : (data) =>
+
+		console.error "failed getting user tweets... ->", data
 
 		null
 

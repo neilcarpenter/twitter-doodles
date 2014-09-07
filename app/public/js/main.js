@@ -127,12 +127,14 @@ module.exports = App;
 
 
 },{"./AppData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppData.coffee","./AppView":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee","./data/Locale":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/Locale.coffee","./data/Templates":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/Templates.coffee","./router/Nav":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Nav.coffee","./router/Router":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Router.coffee","./utils/Analytics":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Analytics.coffee","./utils/AuthManager":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/AuthManager.coffee","./utils/Facebook":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Facebook.coffee","./utils/GooglePlus":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/GooglePlus.coffee","./utils/Share":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Share.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppData.coffee":[function(require,module,exports){
-var API, AbstractData, AppData, Requester,
+var API, AbstractData, AppData, Requester, UserData,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 AbstractData = require('./data/AbstractData');
+
+UserData = require('./data/UserData');
 
 Requester = require('./utils/Requester');
 
@@ -147,11 +149,7 @@ AppData = (function(_super) {
     this.callback = callback;
     this.onStartDataReceived = __bind(this.onStartDataReceived, this);
     this.getStartData = __bind(this.getStartData, this);
-
-    /*
-    
-    		add all data classes here
-     */
+    this.user = new UserData;
     AppData.__super__.constructor.call(this);
     this.getStartData();
     return null;
@@ -200,7 +198,7 @@ AppData = (function(_super) {
 module.exports = AppData;
 
 
-},{"./data/API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./data/AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee","./utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee":[function(require,module,exports){
+},{"./data/API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./data/AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee","./data/UserData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee","./utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee":[function(require,module,exports){
 var AbstractView, AppView, Footer, Header, ModalManager, Preloader, Wrapper,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -399,7 +397,32 @@ view.TD = new App(IS_LIVE);
 view.TD.init();
 
 
-},{"./App":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/App.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee":[function(require,module,exports){
+},{"./App":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/App.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/AbstractCollection.coffee":[function(require,module,exports){
+var AbstractCollection,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractCollection = (function(_super) {
+  __extends(AbstractCollection, _super);
+
+  function AbstractCollection() {
+    this.TD = __bind(this.TD, this);
+    return AbstractCollection.__super__.constructor.apply(this, arguments);
+  }
+
+  AbstractCollection.prototype.TD = function() {
+    return window.TD;
+  };
+
+  return AbstractCollection;
+
+})(Backbone.Collection);
+
+module.exports = AbstractCollection;
+
+
+},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee":[function(require,module,exports){
 var TemplateModel, TemplatesCollection,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -422,7 +445,32 @@ TemplatesCollection = (function(_super) {
 module.exports = TemplatesCollection;
 
 
-},{"../../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee":[function(require,module,exports){
+},{"../../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee":[function(require,module,exports){
+var AbstractCollection, RawTweetModel, RawTweetsCollection,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractCollection = require('../AbstractCollection');
+
+RawTweetModel = require('../../models/tweets/RawTweetModel');
+
+RawTweetsCollection = (function(_super) {
+  __extends(RawTweetsCollection, _super);
+
+  function RawTweetsCollection() {
+    return RawTweetsCollection.__super__.constructor.apply(this, arguments);
+  }
+
+  RawTweetsCollection.prototype.model = RawTweetModel;
+
+  return RawTweetsCollection;
+
+})(AbstractCollection);
+
+module.exports = RawTweetsCollection;
+
+
+},{"../../models/tweets/RawTweetModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/RawTweetModel.coffee","../AbstractCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/AbstractCollection.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee":[function(require,module,exports){
 var API, APIRouteModel;
 
 APIRouteModel = require('../models/core/APIRouteModel');
@@ -660,7 +708,199 @@ Templates = (function() {
 module.exports = Templates;
 
 
-},{"../collections/core/TemplatesCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee","../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/APIRouteModel.coffee":[function(require,module,exports){
+},{"../collections/core/TemplatesCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee","../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee":[function(require,module,exports){
+var API, AbstractData, RawTweetsCollection, Requester, UserData, UserInfoModel, UserStatusModel,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractData = require('./AbstractData');
+
+Requester = require('../utils/Requester');
+
+API = require('./API');
+
+UserStatusModel = require('../models/core/UserStatusModel');
+
+UserInfoModel = require('../models/core/UserInfoModel');
+
+RawTweetsCollection = require('../collections/tweets/RawTweetsCollection');
+
+UserData = (function(_super) {
+  __extends(UserData, _super);
+
+  UserData.prototype.status = null;
+
+  UserData.prototype.info = null;
+
+  UserData.prototype.EVENT_USER_LOGGED = 'EVENT_USER_LOGGED';
+
+  function UserData() {
+    this.onLogoutDone = __bind(this.onLogoutDone, this);
+    this.removeUser = __bind(this.removeUser, this);
+    this.logout = __bind(this.logout, this);
+    this.getTweetsFail = __bind(this.getTweetsFail, this);
+    this.getTweetsSuccess = __bind(this.getTweetsSuccess, this);
+    this.getTweets = __bind(this.getTweets, this);
+    this.loginFail = __bind(this.loginFail, this);
+    this.loginSuccess = __bind(this.loginSuccess, this);
+    this.setupLogin = __bind(this.setupLogin, this);
+    this.login = __bind(this.login, this);
+    this.onLoggedChange = __bind(this.onLoggedChange, this);
+    this.bindEvents = __bind(this.bindEvents, this);
+    this.status = new UserStatusModel;
+    this.info = new UserInfoModel;
+    this.tweetsRaw = new RawTweetsCollection;
+    UserData.__super__.constructor.call(this);
+    this.bindEvents();
+    return null;
+  }
+
+  UserData.prototype.bindEvents = function() {
+    this.status.on('change:logged', this.onLoggedChange);
+    this.on(this.EVENT_USER_LOGGED, this.getTweets);
+    return null;
+  };
+
+  UserData.prototype.onLoggedChange = function() {
+    if (this.status.get('logged')) {
+      this.trigger(this.EVENT_USER_LOGGED);
+    }
+    return null;
+  };
+
+  UserData.prototype.login = function(data) {
+    var h, left, opts, top, url, w;
+    this.setupLogin();
+    url = '/auth/twitter';
+    w = 680;
+    h = 540;
+    left = (screen.availWidth - w) >> 1;
+    top = (screen.availHeight - h) >> 1;
+    opts = 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left + ',location=0,menubar=0,scrollbars=0,status=0,toolbar=0,resizable=0';
+    window._loginWindow = window.open(url, 'loginWindow', opts);
+    return null;
+  };
+
+  UserData.prototype.setupLogin = function() {
+    window.$loginDfd = $.Deferred();
+    window.$loginDfd.done(this.loginSuccess);
+    window.$loginDfd.fail(function() {
+      return this.loginFail;
+    });
+    return null;
+  };
+
+  UserData.prototype.loginSuccess = function(data) {
+    console.log("login successful -->", data);
+    this.info.set(data);
+    window._loginWindow.close();
+    this.status.set('logged', true);
+    return null;
+  };
+
+  UserData.prototype.loginFail = function(res) {
+    console.log("failed to log in... -->", res);
+    return null;
+  };
+
+  UserData.prototype.getTweets = function() {
+    var data, r;
+    data = {
+      user_id: this.info.get('id'),
+      token: this.info.get('token'),
+      tokenSecret: this.info.get('tokenSecret')
+    };
+    r = Requester.request({
+      url: API.get('getTweets'),
+      type: "POST",
+      data: data
+    });
+    r.done(this.getTweetsSuccess);
+    r.fail(this.getTweetsFail);
+    return r;
+  };
+
+  UserData.prototype.getTweetsSuccess = function(data) {
+    this.tweetsRaw.add(data.tweets);
+    return null;
+  };
+
+  UserData.prototype.getTweetsFail = function(data) {
+    console.error("failed getting user tweets... ->", data);
+    return null;
+  };
+
+  UserData.prototype.logout = function(removeUser) {
+    var endpoint, r;
+    if (removeUser == null) {
+      removeUser = false;
+    }
+    endpoint = removeUser ? API.get('user.remove') : API.get('user.logout');
+    r = Requester.request({
+      url: endpoint,
+      type: "POST"
+    });
+    r.done(this.onLogoutDone);
+    return null;
+  };
+
+  UserData.prototype.removeUser = function() {
+    this.logout(true);
+    return null;
+  };
+
+  UserData.prototype.onLogoutDone = function() {
+    window.location.href = this.TD().BASE_PATH;
+    return null;
+  };
+
+  return UserData;
+
+})(AbstractData);
+
+module.exports = UserData;
+
+
+},{"../collections/tweets/RawTweetsCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee","../models/core/UserInfoModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserInfoModel.coffee","../models/core/UserStatusModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserStatusModel.coffee","../utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee","./API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee":[function(require,module,exports){
+var AbstractModel,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = (function(_super) {
+  __extends(AbstractModel, _super);
+
+  function AbstractModel(attrs, option) {
+    this.TD = __bind(this.TD, this);
+    this._filterAttrs = __bind(this._filterAttrs, this);
+    attrs = this._filterAttrs(attrs);
+    return Backbone.DeepModel.apply(this, arguments);
+  }
+
+  AbstractModel.prototype.set = function(attrs, options) {
+    options || (options = {});
+    attrs = this._filterAttrs(attrs);
+    options.data = JSON.stringify(attrs);
+    return Backbone.DeepModel.prototype.set.call(this, attrs, options);
+  };
+
+  AbstractModel.prototype._filterAttrs = function(attrs) {
+    return attrs;
+  };
+
+  AbstractModel.prototype.TD = function() {
+    return window.TD;
+  };
+
+  return AbstractModel;
+
+})(Backbone.DeepModel);
+
+module.exports = AbstractModel;
+
+
+},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/APIRouteModel.coffee":[function(require,module,exports){
 var APIRouteModel,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -675,14 +915,7 @@ APIRouteModel = (function(_super) {
   APIRouteModel.prototype.defaults = {
     start: "{{ BASE_PATH }}/api/start",
     locale: "{{ BASE_PATH }}/api/l10n/{{ code }}",
-    user: {
-      login: "{{ BASE_PATH }}/api/user/login",
-      register: "{{ BASE_PATH }}/api/user/register",
-      password: "{{ BASE_PATH }}/api/user/password",
-      update: "{{ BASE_PATH }}/api/user/update",
-      logout: "{{ BASE_PATH }}/api/user/logout",
-      remove: "{{ BASE_PATH }}/api/user/remove"
-    }
+    getTweets: "{{ BASE_PATH }}/api/twitter/getTweets"
   };
 
   return APIRouteModel;
@@ -765,7 +998,83 @@ TemplateModel = (function(_super) {
 module.exports = TemplateModel;
 
 
-},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Nav.coffee":[function(require,module,exports){
+},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserInfoModel.coffee":[function(require,module,exports){
+var AbstractModel, UserInfoModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = require('../AbstractModel');
+
+UserInfoModel = (function(_super) {
+  __extends(UserInfoModel, _super);
+
+  function UserInfoModel() {
+    return UserInfoModel.__super__.constructor.apply(this, arguments);
+  }
+
+  UserInfoModel.prototype.defaults = {
+    token: "",
+    tokenSecret: "",
+    name: "",
+    id: ""
+  };
+
+  return UserInfoModel;
+
+})(AbstractModel);
+
+module.exports = UserInfoModel;
+
+
+},{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserStatusModel.coffee":[function(require,module,exports){
+var AbstractModel, UserStatusModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = require('../AbstractModel');
+
+UserStatusModel = (function(_super) {
+  __extends(UserStatusModel, _super);
+
+  function UserStatusModel() {
+    return UserStatusModel.__super__.constructor.apply(this, arguments);
+  }
+
+  UserStatusModel.prototype.defaults = {
+    logged: false
+  };
+
+  return UserStatusModel;
+
+})(AbstractModel);
+
+module.exports = UserStatusModel;
+
+
+},{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/RawTweetModel.coffee":[function(require,module,exports){
+var AbstractModel, RawTweetModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = require('../AbstractModel');
+
+RawTweetModel = (function(_super) {
+  __extends(RawTweetModel, _super);
+
+  function RawTweetModel() {
+    return RawTweetModel.__super__.constructor.apply(this, arguments);
+  }
+
+  RawTweetModel.prototype.defaults = "";
+
+  return RawTweetModel;
+
+})(AbstractModel);
+
+module.exports = RawTweetModel;
+
+
+},{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Nav.coffee":[function(require,module,exports){
 var AbstractView, Nav, Router,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1932,41 +2241,34 @@ Header = (function(_super) {
   };
 
   function Header() {
-    this.loginCallback = __bind(this.loginCallback, this);
     this.onLoginClick = __bind(this.onLoginClick, this);
-    this.setup = __bind(this.setup, this);
+    this.render = __bind(this.render, this);
+    this.bindEvents = __bind(this.bindEvents, this);
+    this.userData = this.TD().appData.user;
+    this.tmpl = _.template(this.TD().templates.get(this.template));
     this.templateVars = {
       desc: this.TD().locale.get("header_desc")
     };
+    this.templateVars = $.extend(this.templateVars, this.userData.info.toJSON(), this.userData.status.toJSON());
     Header.__super__.constructor.call(this);
-    this.setup();
+    this.bindEvents();
     return null;
   }
 
-  Header.prototype.setup = function() {
-    window.$loginDfd = $.Deferred();
-    window.$loginDfd.done(this.loginCallback);
-    window.$loginDfd.fail(function() {
-      return alert('there was an issue logging in...');
-    });
+  Header.prototype.bindEvents = function() {
+    this.userData.on(this.userData.EVENT_USER_LOGGED, this.render);
+    return null;
+  };
+
+  Header.prototype.render = function() {
+    var vars;
+    vars = $.extend(this.templateVars, this.userData.info.toJSON(), this.userData.status.toJSON());
+    this.$el.html(this.tmpl(vars));
     return null;
   };
 
   Header.prototype.onLoginClick = function() {
-    var h, left, opts, top, url, w;
-    url = '/auth/twitter';
-    w = 680;
-    h = 540;
-    left = (screen.availWidth - w) >> 1;
-    top = (screen.availHeight - h) >> 1;
-    opts = 'width=' + w + ',height=' + h + ',top=' + top + ',left=' + left + ',location=0,menubar=0,scrollbars=0,status=0,toolbar=0,resizable=0';
-    window._loginWindow = window.open(url, 'loginWindow', opts);
-    return null;
-  };
-
-  Header.prototype.loginCallback = function(data) {
-    window._userData = data;
-    window._loginWindow.close();
+    this.TD().appData.user.login();
     return null;
   };
 

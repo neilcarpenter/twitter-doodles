@@ -26,7 +26,11 @@
             <header id="site-header">
                 <i><%= desc %></i>
                 <ul>
-                    <li><button data-login>Login to twitter</button></a></li>
+                    <% if (logged) { %>
+                        <li>Logged in as <%= name %></li>
+                    <% } else { %>
+                        <li><button data-login>Login to twitter</button></a></li>
+                    <% } %>
                 </ul>
             </header>
         ]]>

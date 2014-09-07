@@ -2,6 +2,10 @@ AbstractModel = require '../AbstractModel'
 
 class UserInfoModel extends AbstractModel
 
-	defaults : ""
+	defaults :
+		token       : ""
+		tokenSecret : ""
+		name        : ""
+		id          : ""
 
 module.exports = UserInfoModel

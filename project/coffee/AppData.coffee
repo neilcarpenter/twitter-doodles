@@ -1,4 +1,5 @@
 AbstractData = require './data/AbstractData'
+UserData     = require './data/UserData'
 Requester    = require './utils/Requester'
 API          = require './data/API'
 
@@ -8,11 +9,7 @@ class AppData extends AbstractData
 
 	constructor : (@callback) ->
 
-		###
-
-		add all data classes here
-
-		###
+		@user = new UserData
 
 		super()
 
