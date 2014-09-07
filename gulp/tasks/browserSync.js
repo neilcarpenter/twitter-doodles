@@ -1,6 +1,6 @@
 var browserSync = require('browser-sync');
 var gulp        = require('gulp');
-var pkg         = require('../../package.json')
+var pkg         = require('../../package.json');
 
 // note this will only work with coffee-only server running
 // seems to fail when trying to run in conjunction with nodemon
