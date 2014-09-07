@@ -1,7 +1,8 @@
-AbstractData = require './data/AbstractData'
-UserData     = require './data/UserData'
-Requester    = require './utils/Requester'
-API          = require './data/API'
+AbstractData  = require './data/AbstractData'
+UserData      = require './data/UserData'
+Requester     = require './utils/Requester'
+API           = require './data/API'
+TweetCruncher = require './data/TweetCruncher'
 
 class AppData extends AbstractData
 
@@ -9,7 +10,8 @@ class AppData extends AbstractData
 
 	constructor : (@callback) ->
 
-		@user = new UserData
+		@user     = new UserData
+		@cruncher = new TweetCruncher
 
 		super()
 

@@ -40,7 +40,7 @@
     "passport"         : "~0.2.0",
     "passport-twitter" : "~1.0.2",
     "twitter"          : "~0.2.9",
-    "grunt"            : "~0.4.1"
+    "underscore"       : "~1.7.0"
     },
   "devDependencies": {
     "walk": "~2.3.3",

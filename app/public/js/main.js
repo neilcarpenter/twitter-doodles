@@ -127,7 +127,7 @@ module.exports = App;
 
 
 },{"./AppData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppData.coffee","./AppView":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee","./data/Locale":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/Locale.coffee","./data/Templates":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/Templates.coffee","./router/Nav":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Nav.coffee","./router/Router":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/router/Router.coffee","./utils/Analytics":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Analytics.coffee","./utils/AuthManager":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/AuthManager.coffee","./utils/Facebook":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Facebook.coffee","./utils/GooglePlus":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/GooglePlus.coffee","./utils/Share":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Share.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppData.coffee":[function(require,module,exports){
-var API, AbstractData, AppData, Requester, UserData,
+var API, AbstractData, AppData, Requester, TweetCruncher, UserData,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -140,6 +140,8 @@ Requester = require('./utils/Requester');
 
 API = require('./data/API');
 
+TweetCruncher = require('./data/TweetCruncher');
+
 AppData = (function(_super) {
   __extends(AppData, _super);
 
@@ -150,6 +152,7 @@ AppData = (function(_super) {
     this.onStartDataReceived = __bind(this.onStartDataReceived, this);
     this.getStartData = __bind(this.getStartData, this);
     this.user = new UserData;
+    this.cruncher = new TweetCruncher;
     AppData.__super__.constructor.call(this);
     if (typeof this.callback === "function") {
       this.callback();
@@ -200,7 +203,7 @@ AppData = (function(_super) {
 module.exports = AppData;
 
 
-},{"./data/API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./data/AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee","./data/UserData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee","./utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee":[function(require,module,exports){
+},{"./data/API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./data/AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee","./data/TweetCruncher":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/TweetCruncher.coffee","./data/UserData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee","./utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/AppView.coffee":[function(require,module,exports){
 var AbstractView, AppView, Footer, Header, ModalManager, Preloader, Wrapper,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -727,7 +730,183 @@ Templates = (function() {
 module.exports = Templates;
 
 
-},{"../collections/core/TemplatesCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee","../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee":[function(require,module,exports){
+},{"../collections/core/TemplatesCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee","../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/TweetCruncher.coffee":[function(require,module,exports){
+var AbstractData, TweetCruncher,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractData = require('./AbstractData');
+
+TweetCruncher = (function(_super) {
+  __extends(TweetCruncher, _super);
+
+  TweetCruncher.prototype.worker = null;
+
+  TweetCruncher.prototype.task_counter = 0;
+
+  TweetCruncher.prototype.dfds = {};
+
+  TweetCruncher.prototype.buffer = [];
+
+  TweetCruncher.prototype.inProgress = false;
+
+  TweetCruncher.prototype.ENV = window.config.LIVE ? 'production' : 'dev';
+
+  TweetCruncher.prototype.DEPENDENCIES = {};
+
+  function TweetCruncher() {
+    this.onError = __bind(this.onError, this);
+    this.onResult = __bind(this.onResult, this);
+    this.crunch = __bind(this.crunch, this);
+    this._processBuffer = __bind(this._processBuffer, this);
+    this._addToBuffer = __bind(this._addToBuffer, this);
+    this.loadDependencies = __bind(this.loadDependencies, this);
+    this.setEnvironment = __bind(this.setEnvironment, this);
+    this.setupEvents = __bind(this.setupEvents, this);
+    this.setupMessaging = __bind(this.setupMessaging, this);
+    this.setup = __bind(this.setup, this);
+    TweetCruncher.__super__.constructor.call(this);
+    this.worker = new Worker("" + (this.TD().BASE_PATH) + window.config.worker.url);
+    this.setup();
+    return null;
+  }
+
+  TweetCruncher.prototype.setup = function() {
+    this.setEnvironment();
+    this.loadDependencies();
+    this.setupMessaging();
+    this.setupEvents();
+    return null;
+  };
+
+  TweetCruncher.prototype.setupMessaging = function() {
+    this.worker.onmessage = (function(_this) {
+      return function(event) {
+        switch (event.data.type) {
+          case "console":
+            return console[event.data.action](event.data.msg);
+          case "result":
+            return _this.trigger('result', {
+              method: event.data.method,
+              result: JSON.parse(event.data.data)
+            });
+          case "error":
+            return _this.trigger('error', {
+              code: event.data.code,
+              result: JSON.parse(event.data.data)
+            });
+          default:
+            return console.log('unknown event - ', event);
+        }
+      };
+    })(this);
+    return null;
+  };
+
+  TweetCruncher.prototype.setupEvents = function() {
+    this.on('result', this.onResult);
+    this.on('error', this.onError);
+    return null;
+  };
+
+  TweetCruncher.prototype.setEnvironment = function() {
+    this.worker.postMessage({
+      type: 'setEnvironment',
+      data: this.ENV
+    });
+    return null;
+  };
+
+  TweetCruncher.prototype.loadDependencies = function() {
+    var name, url, _ref;
+    _ref = this.DEPENDENCIES;
+    for (name in _ref) {
+      url = _ref[name];
+      this.worker.postMessage({
+        type: 'loadDependency',
+        data: url
+      });
+    }
+    return null;
+  };
+
+  TweetCruncher.prototype._addToBuffer = function(data) {
+    this.buffer.push(data);
+    this._processBuffer();
+    this.inProgress = true;
+    return null;
+  };
+
+  TweetCruncher.prototype._processBuffer = function() {
+    var args;
+    if (!(!this.inProgress && this.buffer.length)) {
+      return;
+    }
+    args = this.buffer.shift();
+    console.log("[worker] SEND ", JSON.parse(args.data).task_id);
+    this.worker.postMessage(args);
+    return null;
+  };
+
+
+  /*
+  	/
+  	/ Process all tweets
+  	/ @param data = { tweets : [tweets] }
+  	/
+   */
+
+  TweetCruncher.prototype.crunch = function(data) {
+    data.task_id = this.task_counter++;
+    console.log("crunch: (data) => task_id = ", data.task_id);
+    console.log("[worker] SEND ", data.task_id);
+    this._addToBuffer({
+      type: 'processTweets',
+      data: JSON.stringify(data)
+    });
+    return this.dfds[data.task_id] = $.Deferred();
+  };
+
+  TweetCruncher.prototype.onResult = function(data) {
+    var _ref;
+    console.log("Complete method " + data.method + " - task_id = ", data.result.task_id, data.result);
+    console.log("[worker] RECEIVE ", data.result.task_id);
+    if ((_ref = this.dfds[data.result.task_id]) != null) {
+      _ref.resolve(data.result);
+    }
+    delete this.dfds[data.result.task_id];
+    this.inProgress = false;
+    this._processBuffer();
+    return null;
+  };
+
+
+  /*
+  	/
+  	/ Error handling
+  	/
+  	/
+   */
+
+  TweetCruncher.prototype.onError = function(data) {
+    var _ref;
+    console.error("Error on crunch - ID = ", data.result.task_id, data);
+    if ((_ref = this.dfds[data.result.task_id]) != null) {
+      _ref.reject(data.code);
+    }
+    delete this.dfds[data.result.task_id];
+    return null;
+  };
+
+  return TweetCruncher;
+
+})(AbstractData);
+
+module.exports = TweetCruncher;
+
+
+},{"./AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee":[function(require,module,exports){
 var API, AbstractData, ProcessedTweetsCollection, ProcessedTweetsSampleModel, RawTweetsCollection, Requester, UserData, UserInfoModel, UserStatusModel,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -847,7 +1026,14 @@ UserData = (function(_super) {
   };
 
   UserData.prototype.getTweetsSuccess = function(data) {
+    var crunch;
     this.tweetsRaw.add(data.tweets);
+    crunch = this.TD().appData.cruncher.crunch({
+      tweets: data.tweets
+    });
+    crunch.done(function(data) {
+      return console.log("CRUNCH DONE!!!");
+    });
     return null;
   };
 

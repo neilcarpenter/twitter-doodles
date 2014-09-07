@@ -16,8 +16,8 @@ class UserData extends AbstractData
 
 	constructor : ->
 
-		@status = new UserStatusModel
-		@info   = new UserInfoModel
+		@status   = new UserStatusModel
+		@info     = new UserInfoModel
 
 		@tweetsRaw    = new RawTweetsCollection
 		@tweetsData   = new ProcessedTweetsCollection
@@ -104,6 +104,12 @@ class UserData extends AbstractData
 	getTweetsSuccess : (data) =>
 
 		@tweetsRaw.add data.tweets
+
+		crunch = @TD().appData.cruncher.crunch tweets : data.tweets
+
+		crunch.done (data) ->
+
+			console.log "CRUNCH DONE!!!"
 
 		null
 
