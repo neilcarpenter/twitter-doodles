@@ -445,7 +445,32 @@ TemplatesCollection = (function(_super) {
 module.exports = TemplatesCollection;
 
 
-},{"../../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee":[function(require,module,exports){
+},{"../../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/ProcessedTweetsCollection.coffee":[function(require,module,exports){
+var AbstractCollection, ProcessedTweetsCollection, ProcessedTweetsModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractCollection = require('../AbstractCollection');
+
+ProcessedTweetsModel = require('../../models/tweets/ProcessedTweetsModel');
+
+ProcessedTweetsCollection = (function(_super) {
+  __extends(ProcessedTweetsCollection, _super);
+
+  function ProcessedTweetsCollection() {
+    return ProcessedTweetsCollection.__super__.constructor.apply(this, arguments);
+  }
+
+  ProcessedTweetsCollection.prototype.model = ProcessedTweetsModel;
+
+  return ProcessedTweetsCollection;
+
+})(AbstractCollection);
+
+module.exports = ProcessedTweetsCollection;
+
+
+},{"../../models/tweets/ProcessedTweetsModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/ProcessedTweetsModel.coffee","../AbstractCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/AbstractCollection.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee":[function(require,module,exports){
 var AbstractCollection, RawTweetModel, RawTweetsCollection,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -709,7 +734,7 @@ module.exports = Templates;
 
 
 },{"../collections/core/TemplatesCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/core/TemplatesCollection.coffee","../models/core/TemplateModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/TemplateModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/UserData.coffee":[function(require,module,exports){
-var API, AbstractData, RawTweetsCollection, Requester, UserData, UserInfoModel, UserStatusModel,
+var API, AbstractData, ProcessedTweetsCollection, ProcessedTweetsSampleModel, RawTweetsCollection, Requester, UserData, UserInfoModel, UserStatusModel,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -725,6 +750,10 @@ UserStatusModel = require('../models/core/UserStatusModel');
 UserInfoModel = require('../models/core/UserInfoModel');
 
 RawTweetsCollection = require('../collections/tweets/RawTweetsCollection');
+
+ProcessedTweetsCollection = require('../collections/tweets/ProcessedTweetsCollection');
+
+ProcessedTweetsSampleModel = require('../models/tweets/ProcessedTweetsSampleModel');
 
 UserData = (function(_super) {
   __extends(UserData, _super);
@@ -751,6 +780,8 @@ UserData = (function(_super) {
     this.status = new UserStatusModel;
     this.info = new UserInfoModel;
     this.tweetsRaw = new RawTweetsCollection;
+    this.tweetsData = new ProcessedTweetsCollection;
+    this.tweetsSample = new ProcessedTweetsSampleModel;
     UserData.__super__.constructor.call(this);
     this.bindEvents();
     return null;
@@ -862,7 +893,7 @@ UserData = (function(_super) {
 module.exports = UserData;
 
 
-},{"../collections/tweets/RawTweetsCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee","../models/core/UserInfoModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserInfoModel.coffee","../models/core/UserStatusModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserStatusModel.coffee","../utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee","./API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee":[function(require,module,exports){
+},{"../collections/tweets/ProcessedTweetsCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/ProcessedTweetsCollection.coffee","../collections/tweets/RawTweetsCollection":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/collections/tweets/RawTweetsCollection.coffee","../models/core/UserInfoModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserInfoModel.coffee","../models/core/UserStatusModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/core/UserStatusModel.coffee","../models/tweets/ProcessedTweetsSampleModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/ProcessedTweetsSampleModel.coffee","../utils/Requester":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/utils/Requester.coffee","./API":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/API.coffee","./AbstractData":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/data/AbstractData.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee":[function(require,module,exports){
 var AbstractModel,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1049,6 +1080,75 @@ UserStatusModel = (function(_super) {
 })(AbstractModel);
 
 module.exports = UserStatusModel;
+
+
+},{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/ProcessedTweetsModel.coffee":[function(require,module,exports){
+var AbstractModel, ProcessedTweetsModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = require('../AbstractModel');
+
+ProcessedTweetsModel = (function(_super) {
+  __extends(ProcessedTweetsModel, _super);
+
+  function ProcessedTweetsModel() {
+    return ProcessedTweetsModel.__super__.constructor.apply(this, arguments);
+  }
+
+  ProcessedTweetsModel.prototype.defaults = {
+    length: "",
+    chars: "",
+    words: "",
+    mentions: "",
+    hashtags: "",
+    photos: "",
+    rt_count: "",
+    fav_count: "",
+    time: "",
+    date: ""
+  };
+
+  return ProcessedTweetsModel;
+
+})(AbstractModel);
+
+module.exports = ProcessedTweetsModel;
+
+
+},{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/ProcessedTweetsSampleModel.coffee":[function(require,module,exports){
+var AbstractModel, ProcessedTweetsSampleModel,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+AbstractModel = require('../AbstractModel');
+
+ProcessedTweetsSampleModel = (function(_super) {
+  __extends(ProcessedTweetsSampleModel, _super);
+
+  function ProcessedTweetsSampleModel() {
+    return ProcessedTweetsSampleModel.__super__.constructor.apply(this, arguments);
+  }
+
+  ProcessedTweetsSampleModel.prototype.chars = {
+    count: "",
+    order: ""
+  };
+
+  ProcessedTweetsSampleModel.prototype.words = {
+    count: "",
+    order: ""
+  };
+
+  ProcessedTweetsSampleModel.prototype.hashtags = "";
+
+  ProcessedTweetsSampleModel.prototype.mentions = "";
+
+  return ProcessedTweetsSampleModel;
+
+})(AbstractModel);
+
+module.exports = ProcessedTweetsSampleModel;
 
 
 },{"../AbstractModel":"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/AbstractModel.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/coffee/models/tweets/RawTweetModel.coffee":[function(require,module,exports){

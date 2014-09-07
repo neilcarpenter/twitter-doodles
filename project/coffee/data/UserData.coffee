@@ -1,9 +1,11 @@
-AbstractData        = require './AbstractData'
-Requester           = require '../utils/Requester'
-API                 = require './API'
-UserStatusModel     = require '../models/core/UserStatusModel'
-UserInfoModel       = require '../models/core/UserInfoModel'
-RawTweetsCollection = require '../collections/tweets/RawTweetsCollection'
+AbstractData               = require './AbstractData'
+Requester                  = require '../utils/Requester'
+API                        = require './API'
+UserStatusModel            = require '../models/core/UserStatusModel'
+UserInfoModel              = require '../models/core/UserInfoModel'
+RawTweetsCollection        = require '../collections/tweets/RawTweetsCollection'
+ProcessedTweetsCollection  = require '../collections/tweets/ProcessedTweetsCollection'
+ProcessedTweetsSampleModel = require '../models/tweets/ProcessedTweetsSampleModel'
 
 class UserData extends AbstractData
 
@@ -14,9 +16,12 @@ class UserData extends AbstractData
 
 	constructor : ->
 
-		@status    = new UserStatusModel
-		@info      = new UserInfoModel
-		@tweetsRaw = new RawTweetsCollection
+		@status = new UserStatusModel
+		@info   = new UserInfoModel
+
+		@tweetsRaw    = new RawTweetsCollection
+		@tweetsData   = new ProcessedTweetsCollection
+		@tweetsSample = new ProcessedTweetsSampleModel
 
 		super()
 
