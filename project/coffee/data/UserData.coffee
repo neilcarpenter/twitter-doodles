@@ -46,6 +46,10 @@ class UserData extends AbstractData
 
 	login : (data) =>
 
+		# DEBUG!!!!
+
+		return @getTweets()
+
 		@setupLogin()
 
 		url  = '/auth/twitter'
