@@ -22,13 +22,15 @@ class Locale
         @callback = cb
         @backup = data
 
-        @lang = @getLang()
+        @loadBackup()
 
-        $.ajax
-            url     : API.get( 'locale', { code : @lang } )
-            type    : 'GET'
-            success : @onSuccess
-            error   : @loadBackup
+        # @lang = @getLang()
+
+        # $.ajax
+        #     url     : API.get( 'locale', { code : @lang } )
+        #     type    : 'GET'
+        #     success : @onSuccess
+        #     error   : @loadBackup
 
         null
             

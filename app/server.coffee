@@ -8,7 +8,8 @@ app     = express()
 log = require("winston").loggers.get("app:server")
 
 app.set "views", __dirname
-app.set "view engine", "jade"
+app.engine 'html', require('ejs').renderFile
+app.set 'view engine', 'html'
 app.use(express.static(__dirname + '/public'))
 
 #See the README about ordering of middleware

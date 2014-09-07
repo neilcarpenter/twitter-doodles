@@ -21,6 +21,6 @@ gulp.task('html', function () {
 			var r = manifest[b];
 			return r && (typeof r === 'string' || typeof r === 'number') ? r : b;
 		}))
-		.pipe(gulp.dest(pkg.folders.dest));
+		.pipe(gulp.dest(pkg.folders.dest+'/html/'));
 
 });

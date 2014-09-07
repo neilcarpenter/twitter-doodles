@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Returning to site...</title>
+</head>
+<body>
+	<i>Calling back to parent...</i>
+
+	<script>
+		var data = {
+			token       : "<%= token %>",
+			tokenSecret : "<%= tokenSecret %>",
+			name        : "<%= name %>",
+			id          : "<%= id %>",
+		};
+
+		window.opener.$loginDfd.resolve(data);
+	</script>
+</body>
+</html>

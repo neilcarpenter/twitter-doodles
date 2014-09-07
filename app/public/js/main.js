@@ -151,7 +151,9 @@ AppData = (function(_super) {
     this.getStartData = __bind(this.getStartData, this);
     this.user = new UserData;
     AppData.__super__.constructor.call(this);
-    this.getStartData();
+    if (typeof this.callback === "function") {
+      this.callback();
+    }
     return null;
   }
 
@@ -599,15 +601,7 @@ Locale = (function() {
     /* start Locale Loader, define locale based on browser language */
     this.callback = cb;
     this.backup = data;
-    this.lang = this.getLang();
-    $.ajax({
-      url: API.get('locale', {
-        code: this.lang
-      }),
-      type: 'GET',
-      success: this.onSuccess,
-      error: this.loadBackup
-    });
+    this.loadBackup();
     null;
   }
 

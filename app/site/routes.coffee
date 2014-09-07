@@ -3,13 +3,13 @@ express = require 'express'
 content = require '../content/all.json'
 
 home = (req, res) ->
-	res.render "site/home", content.home
+	res.render "public/html/index", content.home
 
-about = (req, res) ->
-	res.render "site/about"
+# about = (req, res) ->
+# 	res.render "site/about"
 
 setup = (app) ->
 	app.get '/', home
-	app.get '/about', about
+	# app.get '/about', about
 
 module.exports = setup

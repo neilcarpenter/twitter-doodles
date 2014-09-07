@@ -13,7 +13,9 @@ class AppData extends AbstractData
 
 		super()
 
-		@getStartData()
+		@callback?()
+
+		# @getStartData()
 
 		return null
 
