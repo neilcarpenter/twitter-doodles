@@ -1,14 +1,16 @@
-Abstract   = require '../Abstract'
-TweetUtils = require '../utils/TweetUtils'
+Abstract         = require '../Abstract'
+PreProcessTweets = require '../utils/PreProcessTweets'
 
 class TweetsProcessor extends Abstract
 
 	rawTweets    : null
 	noLinkTweets : null
 
-	process : (@rawTweets) =>
+	process : (rawTweets) =>
 
-		@noLinkTweets = TweetUtils.removeLinks @rawTweets
+		@rawTweets = JSON.parse JSON.stringify rawTweets
+
+		# @noLinkTweets = PreProcessTweets.removeLinks @rawTweets
 
 		(tweet.TW_PROCESSED = true) for tweet in @rawTweets
 

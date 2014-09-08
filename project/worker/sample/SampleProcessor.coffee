@@ -1,11 +1,14 @@
-Abstract   = require '../Abstract'
-TweetUtils = require '../utils/TweetUtils'
+Abstract         = require '../Abstract'
+PreProcessTweets = require '../utils/PreProcessTweets'
+PostProcessArray = require '../utils/PostProcessArray'
 
 class SampleProcessor extends Abstract
 
 	rawTweets : null
 
-	process : (@rawTweets) =>
+	process : (rawTweets) =>
+
+		@rawTweets = JSON.parse JSON.stringify rawTweets
 
 		sampleData =
 			chars :
@@ -14,17 +17,36 @@ class SampleProcessor extends Abstract
 			words :
 				order : @_getWordsOrdered()
 				count : ""
-			hashtags : ""
-			mentions : ""
+			hashtags : 
+				order : ""
+				count : ""
+			mentions : 
+				order : ""
+				count : ""
 
 		sampleData
 
+	preProcess : (commands) =>
+
+		tweets  = JSON.parse JSON.stringify @rawTweets
+		(tweets = PreProcessTweets[command] tweets) for command in commands
+
+		tweets
+
+	postProcess : (data, commands) =>
+
+		(data = PostProcessArray[command] data) for command in commands
+
+		data
+
 	_getCharsOrdered : =>
 
-		tweets = @rawTweets.slice()
-		tweets = TweetUtils.removeLinks tweets
-		tweets = TweetUtils.unescape tweets
-		tweets = TweetUtils.removeWhiteSpace tweets
+		tweets = @preProcess [
+			'removeLinks',
+			'unescape',
+			'removeExtraSpaces',
+			'removeAllWhiteSpace'
+		]
 
 		result = ''
 		(result += tweet.text) for tweet in tweets
@@ -34,13 +56,24 @@ class SampleProcessor extends Abstract
 
 	_getWordsOrdered : =>
 
-		tweets = @rawTweets.slice()
-		tweets = TweetUtils.removeLinks tweets
-		tweets = TweetUtils.unescape tweets
+		tweets = @preProcess [
+			'removeLinks',
+			'removeMentions',
+			'unescape',
+			'removeExtraSpaces',
+			'removePunctuation',
+			'removeQuotations',
+			'toLowerCase'
+		]
 
 		result = ''
 		(result += tweet.text) for tweet in tweets
 		result = result.split(' ')
+
+		result = @postProcess result, [
+			'removeEmptyIndices',
+			'removeAts'
+		]
 
 		result
 

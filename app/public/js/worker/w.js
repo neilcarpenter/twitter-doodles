@@ -1522,14 +1522,16 @@ module.exports = Cruncher;
 
 
 },{"../sample/SampleProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee","../tweets/TweetsProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee":[function(require,module,exports){
-var Abstract, SampleProcessor, TweetUtils,
+var Abstract, PostProcessArray, PreProcessTweets, SampleProcessor,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Abstract = require('../Abstract');
 
-TweetUtils = require('../utils/TweetUtils');
+PreProcessTweets = require('../utils/PreProcessTweets');
+
+PostProcessArray = require('../utils/PostProcessArray');
 
 SampleProcessor = (function(_super) {
   __extends(SampleProcessor, _super);
@@ -1537,6 +1539,8 @@ SampleProcessor = (function(_super) {
   function SampleProcessor() {
     this._getWordsOrdered = __bind(this._getWordsOrdered, this);
     this._getCharsOrdered = __bind(this._getCharsOrdered, this);
+    this.postProcess = __bind(this.postProcess, this);
+    this.preProcess = __bind(this.preProcess, this);
     this.process = __bind(this.process, this);
     return SampleProcessor.__super__.constructor.apply(this, arguments);
   }
@@ -1545,7 +1549,7 @@ SampleProcessor = (function(_super) {
 
   SampleProcessor.prototype.process = function(rawTweets) {
     var sampleData;
-    this.rawTweets = rawTweets;
+    this.rawTweets = JSON.parse(JSON.stringify(rawTweets));
     sampleData = {
       chars: {
         order: this._getCharsOrdered(),
@@ -1555,18 +1559,40 @@ SampleProcessor = (function(_super) {
         order: this._getWordsOrdered(),
         count: ""
       },
-      hashtags: "",
-      mentions: ""
+      hashtags: {
+        order: "",
+        count: ""
+      },
+      mentions: {
+        order: "",
+        count: ""
+      }
     };
     return sampleData;
   };
 
+  SampleProcessor.prototype.preProcess = function(commands) {
+    var command, tweets, _i, _len;
+    tweets = JSON.parse(JSON.stringify(this.rawTweets));
+    for (_i = 0, _len = commands.length; _i < _len; _i++) {
+      command = commands[_i];
+      tweets = PreProcessTweets[command](tweets);
+    }
+    return tweets;
+  };
+
+  SampleProcessor.prototype.postProcess = function(data, commands) {
+    var command, _i, _len;
+    for (_i = 0, _len = commands.length; _i < _len; _i++) {
+      command = commands[_i];
+      data = PostProcessArray[command](data);
+    }
+    return data;
+  };
+
   SampleProcessor.prototype._getCharsOrdered = function() {
     var result, tweet, tweets, _i, _len;
-    tweets = this.rawTweets.slice();
-    tweets = TweetUtils.removeLinks(tweets);
-    tweets = TweetUtils.unescape(tweets);
-    tweets = TweetUtils.removeWhiteSpace(tweets);
+    tweets = this.preProcess(['removeLinks', 'unescape', 'removeExtraSpaces', 'removeAllWhiteSpace']);
     result = '';
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
@@ -1578,15 +1604,14 @@ SampleProcessor = (function(_super) {
 
   SampleProcessor.prototype._getWordsOrdered = function() {
     var result, tweet, tweets, _i, _len;
-    tweets = this.rawTweets.slice();
-    tweets = TweetUtils.removeLinks(tweets);
-    tweets = TweetUtils.unescape(tweets);
+    tweets = this.preProcess(['removeLinks', 'removeMentions', 'unescape', 'removeExtraSpaces', 'removePunctuation', 'removeQuotations', 'toLowerCase']);
     result = '';
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
       result += tweet.text;
     }
     result = result.split(' ');
+    result = this.postProcess(result, ['removeEmptyIndices', 'removeAts']);
     return result;
   };
 
@@ -1597,15 +1622,15 @@ SampleProcessor = (function(_super) {
 module.exports = SampleProcessor;
 
 
-},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/TweetUtils":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/TweetUtils.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
-var Abstract, TweetUtils, TweetsProcessor,
+},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PostProcessArray":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
+var Abstract, PreProcessTweets, TweetsProcessor,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Abstract = require('../Abstract');
 
-TweetUtils = require('../utils/TweetUtils');
+PreProcessTweets = require('../utils/PreProcessTweets');
 
 TweetsProcessor = (function(_super) {
   __extends(TweetsProcessor, _super);
@@ -1621,8 +1646,7 @@ TweetsProcessor = (function(_super) {
 
   TweetsProcessor.prototype.process = function(rawTweets) {
     var tweet, _i, _len, _ref;
-    this.rawTweets = rawTweets;
-    this.noLinkTweets = TweetUtils.removeLinks(this.rawTweets);
+    this.rawTweets = JSON.parse(JSON.stringify(rawTweets));
     _ref = this.rawTweets;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       tweet = _ref[_i];
@@ -1638,30 +1662,90 @@ TweetsProcessor = (function(_super) {
 module.exports = TweetsProcessor;
 
 
-},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/TweetUtils":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/TweetUtils.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/TweetUtils.coffee":[function(require,module,exports){
-var TweetUtils, _;
+},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee":[function(require,module,exports){
+var PostProcessArray;
+
+PostProcessArray = (function() {
+  function PostProcessArray() {}
+
+  PostProcessArray.re = null;
+
+  PostProcessArray.removeEmptyIndices = function(array) {
+    var item, newArray, _i, _len;
+    newArray = [];
+    for (_i = 0, _len = array.length; _i < _len; _i++) {
+      item = array[_i];
+      if (item !== '') {
+        newArray.push(item);
+      }
+    }
+    return newArray;
+  };
+
+  PostProcessArray.removeAts = function(array) {
+    var item, newArray, _i, _len;
+    newArray = [];
+    for (_i = 0, _len = array.length; _i < _len; _i++) {
+      item = array[_i];
+      if (item !== '@') {
+        newArray.push(item);
+      }
+    }
+    return newArray;
+  };
+
+  return PostProcessArray;
+
+})();
+
+module.exports = PostProcessArray;
+
+
+},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee":[function(require,module,exports){
+var PreProcessTweets, _;
 
 _ = require('underscore');
 
-TweetUtils = (function() {
-  function TweetUtils() {}
+PreProcessTweets = (function() {
+  function PreProcessTweets() {}
 
-  TweetUtils.removeLinks = function(tweets) {
+  PreProcessTweets.re = {
+    url: /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g,
+    mention: /\B@[a-z0-9_-]+/gi,
+    whitespace: /\s/g,
+    extraSpace: /\s{2,}/g,
+    punctuation: /[\.,-\/%\^&\*\+;:{}=\-_`~()><]/g
+  };
+
+  PreProcessTweets.removeLinks = function(tweets) {
     var tweet, url, _i, _j, _len, _len1, _ref;
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
-      if (tweet.entities.urls) {
-        _ref = tweet.entities.urls;
-        for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
-          url = _ref[_j];
-          tweet.text = tweet.text.replace(url.url, '');
-        }
+      _ref = tweet.entities.urls;
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        url = _ref[_j];
+        tweet.text = tweet.text.replace(url.url, '');
       }
+      tweet.text = tweet.text.replace(PreProcessTweets.re.url, '');
     }
     return tweets;
   };
 
-  TweetUtils.unescape = function(tweets) {
+  PreProcessTweets.removeMentions = function(tweets) {
+    var mention, tweet, _i, _j, _len, _len1, _ref;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      _ref = tweet.entities.user_mentions;
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        mention = _ref[_j];
+        tweet.text = tweet.text.replace('@' + mention.screen_name, '');
+      }
+      tweet.text = tweet.text.replace(PreProcessTweets.re.mention, '');
+    }
+    return tweets;
+  };
+
+  PreProcessTweets.unescape = function(tweets) {
     var tweet, _i, _len;
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
@@ -1670,20 +1754,56 @@ TweetUtils = (function() {
     return tweets;
   };
 
-  TweetUtils.removeWhiteSpace = function(tweets) {
+  PreProcessTweets.removeExtraSpaces = function(tweets) {
     var tweet, _i, _len;
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
-      tweet.text = tweet.text.replace(/\s/g, '');
+      tweet.text = tweet.text.replace(PreProcessTweets.re.extraSpace, ' ');
     }
     return tweets;
   };
 
-  return TweetUtils;
+  PreProcessTweets.removeAllWhiteSpace = function(tweets) {
+    var tweet, _i, _len;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      tweet.text = tweet.text.replace(PreProcessTweets.re.whitespace, '');
+    }
+    return tweets;
+  };
+
+  PreProcessTweets.removePunctuation = function(tweets) {
+    var tweet, _i, _len;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      tweet.text = tweet.text.replace(PreProcessTweets.re.punctuation, '');
+    }
+    return tweets;
+  };
+
+  PreProcessTweets.removeQuotations = function(tweets) {
+    var tweet, _i, _len;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      tweet.text = tweet.text.replace('"', '');
+    }
+    return tweets;
+  };
+
+  PreProcessTweets.toLowerCase = function(tweets) {
+    var tweet, _i, _len;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      tweet.text = tweet.text.toLowerCase();
+    }
+    return tweets;
+  };
+
+  return PreProcessTweets;
 
 })();
 
-module.exports = TweetUtils;
+module.exports = PreProcessTweets;
 
 
 },{"underscore":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/underscore/underscore.js"}]},{},["/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Main.coffee"])
