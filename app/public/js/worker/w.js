@@ -1522,10 +1522,12 @@ module.exports = Cruncher;
 
 
 },{"../sample/SampleProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee","../tweets/TweetsProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee":[function(require,module,exports){
-var Abstract, PostProcessArray, PreProcessTweets, SampleProcessor,
+var Abstract, PostProcessArray, PreProcessTweets, SampleProcessor, _,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
 
 Abstract = require('../Abstract');
 
@@ -1537,8 +1539,13 @@ SampleProcessor = (function(_super) {
   __extends(SampleProcessor, _super);
 
   function SampleProcessor() {
-    this._getWordsOrdered = __bind(this._getWordsOrdered, this);
-    this._getCharsOrdered = __bind(this._getCharsOrdered, this);
+    this._getMentionsChrono = __bind(this._getMentionsChrono, this);
+    this._getHashtagsChrono = __bind(this._getHashtagsChrono, this);
+    this._getWordsChrono = __bind(this._getWordsChrono, this);
+    this._getCharsChrono = __bind(this._getCharsChrono, this);
+    this.sortInt = __bind(this.sortInt, this);
+    this.sortAlpha = __bind(this.sortAlpha, this);
+    this.count = __bind(this.count, this);
     this.postProcess = __bind(this.postProcess, this);
     this.preProcess = __bind(this.preProcess, this);
     this.process = __bind(this.process, this);
@@ -1548,24 +1555,44 @@ SampleProcessor = (function(_super) {
   SampleProcessor.prototype.rawTweets = null;
 
   SampleProcessor.prototype.process = function(rawTweets) {
-    var sampleData;
+    var charsChrono, charsCounted, hashtagsChrono, hashtagsCounted, mentionsChrono, mentionsCounted, sampleData, wordsChrono, wordsCounted;
     this.rawTweets = JSON.parse(JSON.stringify(rawTweets));
+    charsChrono = this._getCharsChrono();
+    wordsChrono = this._getWordsChrono();
+    hashtagsChrono = this._getHashtagsChrono();
+    mentionsChrono = this._getMentionsChrono();
+    charsCounted = this.count(charsChrono, 'char');
+    wordsCounted = this.count(wordsChrono, 'word');
+    hashtagsCounted = this.count(hashtagsChrono, 'hashtag');
+    mentionsCounted = this.count(mentionsChrono, 'mention');
     sampleData = {
       chars: {
-        order: this._getCharsOrdered(),
-        count: ""
+        chrono: charsChrono,
+        counted: {
+          alpha: this.sortAlpha(charsCounted, 'char'),
+          count: this.sortInt(charsCounted)
+        }
       },
       words: {
-        order: this._getWordsOrdered(),
-        count: ""
+        chrono: wordsChrono,
+        counted: {
+          alpha: this.sortAlpha(wordsCounted, 'word'),
+          count: this.sortInt(wordsCounted)
+        }
       },
       hashtags: {
-        order: "",
-        count: ""
+        chrono: hashtagsChrono,
+        counted: {
+          alpha: this.sortAlpha(hashtagsCounted, 'hashtag'),
+          count: this.sortInt(hashtagsCounted)
+        }
       },
       mentions: {
-        order: "",
-        count: ""
+        chrono: mentionsChrono,
+        counted: {
+          alpha: this.sortAlpha(mentionsCounted, 'mention'),
+          count: this.sortInt(mentionsCounted)
+        }
       }
     };
     return sampleData;
@@ -1590,7 +1617,42 @@ SampleProcessor = (function(_super) {
     return data;
   };
 
-  SampleProcessor.prototype._getCharsOrdered = function() {
+  SampleProcessor.prototype.count = function(data, label) {
+    var count, name, result, val, value, _i, _len, _result;
+    _result = {};
+    result = [];
+    for (_i = 0, _len = data.length; _i < _len; _i++) {
+      value = data[_i];
+      if (_result[value]) {
+        _result[value]++;
+      } else {
+        _result[value] = 1;
+      }
+    }
+    for (name in _result) {
+      count = _result[name];
+      val = {
+        count: count
+      };
+      val[label] = name;
+      result.push(val);
+    }
+    return result;
+  };
+
+  SampleProcessor.prototype.sortAlpha = function(data, label) {
+    data.sort(function(a, b) {
+      return a[label].localeCompare(b[label]);
+    });
+    return data;
+  };
+
+  SampleProcessor.prototype.sortInt = function(data) {
+    data = _.sortBy(data, 'count').reverse();
+    return data;
+  };
+
+  SampleProcessor.prototype._getCharsChrono = function() {
     var result, tweet, tweets, _i, _len;
     tweets = this.preProcess(['removeLinks', 'unescape', 'removeExtraSpaces', 'removeAllWhiteSpace']);
     result = '';
@@ -1602,7 +1664,7 @@ SampleProcessor = (function(_super) {
     return result;
   };
 
-  SampleProcessor.prototype._getWordsOrdered = function() {
+  SampleProcessor.prototype._getWordsChrono = function() {
     var result, tweet, tweets, _i, _len;
     tweets = this.preProcess(['removeLinks', 'removeMentions', 'unescape', 'removeExtraSpaces', 'removePunctuation', 'removeQuotations', 'toLowerCase']);
     result = '';
@@ -1615,6 +1677,36 @@ SampleProcessor = (function(_super) {
     return result;
   };
 
+  SampleProcessor.prototype._getHashtagsChrono = function() {
+    var hashtag, result, tweet, tweets, _i, _j, _len, _len1, _ref;
+    tweets = this.preProcess([]);
+    result = [];
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      _ref = tweet.entities.hashtags;
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        hashtag = _ref[_j];
+        result.push('#' + hashtag.text);
+      }
+    }
+    return result;
+  };
+
+  SampleProcessor.prototype._getMentionsChrono = function() {
+    var mention, result, tweet, tweets, _i, _j, _len, _len1, _ref;
+    tweets = this.preProcess([]);
+    result = [];
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      _ref = tweet.entities.user_mentions;
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        mention = _ref[_j];
+        result.push('@' + mention.screen_name);
+      }
+    }
+    return result;
+  };
+
   return SampleProcessor;
 
 })(Abstract);
@@ -1622,7 +1714,7 @@ SampleProcessor = (function(_super) {
 module.exports = SampleProcessor;
 
 
-},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PostProcessArray":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
+},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PostProcessArray":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee","underscore":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/underscore/underscore.js"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
 var Abstract, PreProcessTweets, TweetsProcessor,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1714,7 +1806,7 @@ PreProcessTweets = (function() {
     mention: /\B@[a-z0-9_-]+/gi,
     whitespace: /\s/g,
     extraSpace: /\s{2,}/g,
-    punctuation: /[\.,-\/%\^&\*\+;:{}=\-_`~()><]/g
+    punctuation: /[\.,-\/%\^&\*\+;:{}=\-–\?_`~()><]/g
   };
 
   PreProcessTweets.removeLinks = function(tweets) {

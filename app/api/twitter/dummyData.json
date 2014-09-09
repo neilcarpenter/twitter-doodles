@@ -8468,7 +8468,15 @@
     "retweet_count": 0,
     "favorite_count": 0,
     "entities": {
-      "hashtags": [],
+      "hashtags": [
+        {
+          "text": "whatever",
+          "indices": [
+            63,
+            72
+          ]
+        }
+      ],
       "symbols": [],
       "urls": [],
       "user_mentions": [
@@ -8566,7 +8574,15 @@
     "retweet_count": 0,
     "favorite_count": 0,
     "entities": {
-      "hashtags": [],
+      "hashtags": [
+        {
+          "text": "whatever",
+          "indices": [
+            63,
+            72
+          ]
+        }
+      ],
       "symbols": [],
       "urls": [],
       "user_mentions": [
@@ -8709,7 +8725,15 @@
     "retweet_count": 0,
     "favorite_count": 0,
     "entities": {
-      "hashtags": [],
+      "hashtags": [
+        {
+          "text": "aaaaaAAAAAAA",
+          "indices": [
+            63,
+            72
+          ]
+        }
+      ],
       "symbols": [],
       "urls": [],
       "user_mentions": [

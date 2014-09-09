@@ -7,7 +7,7 @@ class PreProcessTweets
 		mention     : /\B@[a-z0-9_-]+/gi
 		whitespace  : /\s/g
 		extraSpace  : /\s{2,}/g
-		punctuation : /[\.,-\/%\^&\*\+;:{}=\-_`~()><]/g
+		punctuation : /[\.,-\/%\^&\*\+;:{}=\-–\?_`~()><]/g # rewrite this - just do regex for everything that isn't a alphabetical character...
 
 	@removeLinks = (tweets) =>
 
