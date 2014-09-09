@@ -859,8 +859,8 @@ TweetCruncher = (function(_super) {
 
   TweetCruncher.prototype.crunch = function(data) {
     data.task_id = this.task_counter++;
+    data.timestamp = Date.now();
     console.log("crunch: (data) => task_id = ", data.task_id);
-    console.log("[worker] SEND ", data.task_id);
     this._addToBuffer({
       type: 'processTweets',
       data: JSON.stringify(data)
@@ -869,12 +869,14 @@ TweetCruncher = (function(_super) {
   };
 
   TweetCruncher.prototype.onResult = function(data) {
-    var _ref;
+    var time, _ref;
+    time = Date.now() - data.result.timestamp;
     console.log("Complete method " + data.method + " - task_id = ", data.result.task_id, data.result);
-    console.log("[worker] RECEIVE ", data.result.task_id);
+    console.log("[worker] RECEIVE in " + time + "ms -- ", data.result.task_id);
     if ((_ref = this.dfds[data.result.task_id]) != null) {
       _ref.resolve(data.result);
     }
+    this.dfds[data.result.task_id] = null;
     delete this.dfds[data.result.task_id];
     this.inProgress = false;
     this._processBuffer();
@@ -895,6 +897,7 @@ TweetCruncher = (function(_super) {
     if ((_ref = this.dfds[data.result.task_id]) != null) {
       _ref.reject(data.code);
     }
+    this.dfds[data.result.task_id] = null;
     delete this.dfds[data.result.task_id];
     return null;
   };
@@ -975,6 +978,7 @@ UserData = (function(_super) {
 
   UserData.prototype.login = function(data) {
     var h, left, opts, top, url, w;
+    return this.getTweets();
     this.setupLogin();
     url = '/auth/twitter';
     w = 680;

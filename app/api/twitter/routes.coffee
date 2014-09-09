@@ -5,7 +5,7 @@ bodyParser = require 'body-parser'
 getTweets = (req, res) ->
 
 	# DEBUG!!!
-	# return res.json tweets : require './dummyData.json'
+	return res.json tweets : require './dummyData.json'
 
 	tweets   = []
 	# today    = new Date()

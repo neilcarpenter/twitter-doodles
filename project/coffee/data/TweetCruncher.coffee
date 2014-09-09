@@ -116,10 +116,11 @@ class TweetCruncher extends AbstractData
 	###
 	crunch: (data) =>
 
-		data.task_id = @task_counter++
+		data.task_id   = @task_counter++
+		data.timestamp = Date.now()
 
 		console.log "crunch: (data) => task_id = ", data.task_id
-		console.log "[worker] SEND ", data.task_id
+		# console.log "[worker] SEND ", data.task_id
 
 		@_addToBuffer
 			type : 'processTweets'
@@ -129,10 +130,13 @@ class TweetCruncher extends AbstractData
 
 	onResult: (data) =>
 
+		time = Date.now() - data.result.timestamp
+
 		console.log "Complete method #{data.method} - task_id = ", data.result.task_id, data.result
-		console.log "[worker] RECEIVE ", data.result.task_id
+		console.log "[worker] RECEIVE in #{time}ms -- ", data.result.task_id
 
 		@dfds[data.result.task_id]?.resolve data.result
+		@dfds[data.result.task_id] = null
 		delete @dfds[data.result.task_id]
 
 		@inProgress = false
@@ -151,6 +155,7 @@ class TweetCruncher extends AbstractData
 		console.error "Error on crunch - ID = ", data.result.task_id, data
 
 		@dfds[data.result.task_id]?.reject data.code
+		@dfds[data.result.task_id] = null
 		delete @dfds[data.result.task_id]
 
 		null

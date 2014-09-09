@@ -47,7 +47,7 @@ class UserData extends AbstractData
 	login : (data) =>
 
 		# DEBUG!!!!
-		# return @getTweets()
+		return @getTweets()
 
 		@setupLogin()
 

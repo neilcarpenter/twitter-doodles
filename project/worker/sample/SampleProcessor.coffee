@@ -1,4 +1,5 @@
 _                = require 'underscore'
+url              = require 'url'
 Abstract         = require '../Abstract'
 PreProcessTweets = require '../utils/PreProcessTweets'
 PostProcessArray = require '../utils/PostProcessArray'
@@ -11,15 +12,21 @@ class SampleProcessor extends Abstract
 
 		@rawTweets = JSON.parse JSON.stringify rawTweets
 
-		charsChrono    = @_getCharsChrono()
-		wordsChrono    = @_getWordsChrono()
-		hashtagsChrono = @_getHashtagsChrono()
-		mentionsChrono = @_getMentionsChrono()
+		charsChrono     = @_getCharsChrono()
+		wordsChrono     = @_getWordsChrono()
+		hashtagsChrono  = @_getHashtagsChrono()
+		mentionsChrono  = @_getMentionsChrono()
+		sourcesChrono   = @_getSourcesChrono()
+		linkHostsChrono = @_getLinkHostsChrono()
+		placesChrono    = @_getPlacesChrono()
 
-		charsCounted    = @count charsChrono, 'char'
-		wordsCounted    = @count wordsChrono, 'word'
-		hashtagsCounted = @count hashtagsChrono, 'hashtag'
-		mentionsCounted = @count mentionsChrono, 'mention'
+		charsCounted     = @count charsChrono, 'char'
+		wordsCounted     = @count wordsChrono, 'word'
+		hashtagsCounted  = @count hashtagsChrono, 'hashtag'
+		mentionsCounted  = @count mentionsChrono, 'mention'
+		sourcesCounted   = @count sourcesChrono, 'source'
+		linkHostsCounted = @count linkHostsChrono, 'host'
+		placesCounted    = @count placesChrono, 'place'
 
 		sampleData =
 			chars :
@@ -42,6 +49,21 @@ class SampleProcessor extends Abstract
 				counted :
 					alpha : @sortAlpha mentionsCounted, 'mention'
 					count : @sortCount mentionsCounted
+			sources :
+				chrono : sourcesChrono
+				counted :
+					alpha : @sortAlpha sourcesCounted, 'source'
+					count : @sortCount sourcesCounted
+			linkHosts :
+				chrono : linkHostsChrono
+				counted :
+					alpha : @sortAlpha linkHostsCounted, 'host'
+					count : @sortCount linkHostsCounted
+			places :
+				chrono : placesChrono
+				counted :
+					alpha : @sortAlpha placesCounted, 'place'
+					count : @sortCount placesCounted
 
 		sampleData
 
@@ -124,7 +146,7 @@ class SampleProcessor extends Abstract
 
 	_getHashtagsChrono : =>
 
-		tweets = @preProcess []
+		tweets = @rawTweets
 
 		result = []
 
@@ -134,11 +156,41 @@ class SampleProcessor extends Abstract
 
 	_getMentionsChrono : =>
 
-		tweets = @preProcess []
+		tweets = @rawTweets
 
 		result = []
 
 		((result.push '@'+mention.screen_name) for mention in tweet.entities.user_mentions) for tweet in tweets
+
+		result
+
+	_getSourcesChrono : =>
+
+		tweets = @rawTweets
+
+		result = []
+
+		(result.push tweet.source.replace(/<([^>]+)>/g, '')) for tweet in tweets
+
+		result
+
+	_getLinkHostsChrono : =>
+
+		tweets = @rawTweets
+
+		result = []
+
+		((result.push url.parse(link.expanded_url).hostname) for link in tweet.entities.urls) for tweet in tweets
+
+		result
+
+	_getPlacesChrono : =>
+
+		tweets = @rawTweets
+
+		result = []
+
+		(if tweet.place then result.push tweet.place.full_name) for tweet in tweets
 
 		result
 

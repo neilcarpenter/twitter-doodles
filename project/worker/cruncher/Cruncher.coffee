@@ -32,6 +32,7 @@ class Cruncher
 
 		result =
 			task_id     : @data.task_id
+			timestamp   : @data.timestamp
 			tweetsData  : @tweetsProcessor.process @data.tweets
 			tweetsSample: @sampleProcessor.process @data.tweets
 
