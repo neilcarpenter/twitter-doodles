@@ -5,15 +5,17 @@ bodyParser = require 'body-parser'
 getTweets = (req, res) ->
 
 	# DEBUG!!!
-	return res.json tweets : require './dummyData.json'
+	# return res.json tweets : require './dummyData.json'
 
 	tweets   = []
-	today    = new Date()
-	monthAgo = new Date(today.getFullYear(), today.getMonth()-1, today.getDate())
+	# today    = new Date()
+	# monthAgo = new Date(today.getFullYear(), today.getMonth()-1, today.getDate())
+
+	target = 1000
 
 	params =
 		user_id          : req.body.user_id
-		count            : 50
+		count            : 200
 		include_entities : true
 
 	twit = new twitter
@@ -29,11 +31,15 @@ getTweets = (req, res) ->
 
 		twit.get '/statuses/user_timeline.json', params, (data) ->
 
+			console.log "calling twitter...? hello....? ", params
+
 			# don't include reference tweet twice
 			if max_id then data.shift()
 
 			for tweet in data
-				if new Date(tweet.created_at) > monthAgo
+				target--
+				# if new Date(tweet.created_at) > monthAgo
+				if target >= 0
 					tweets.push tweet
 				else
 					ret = true
