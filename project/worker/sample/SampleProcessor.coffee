@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_                = require 'underscore'
 Abstract         = require '../Abstract'
 PreProcessTweets = require '../utils/PreProcessTweets'
 PostProcessArray = require '../utils/PostProcessArray'
@@ -26,22 +26,22 @@ class SampleProcessor extends Abstract
 				chrono : charsChrono
 				counted :
 					alpha : @sortAlpha charsCounted, 'char'
-					count : @sortInt charsCounted
+					count : @sortCount charsCounted
 			words :
 				chrono : wordsChrono
 				counted :
 					alpha : @sortAlpha wordsCounted, 'word'
-					count : @sortInt wordsCounted
+					count : @sortCount wordsCounted
 			hashtags :
 				chrono : hashtagsChrono
 				counted :
 					alpha : @sortAlpha hashtagsCounted, 'hashtag'
-					count : @sortInt hashtagsCounted
+					count : @sortCount hashtagsCounted
 			mentions : 
 				chrono : mentionsChrono
 				counted :
 					alpha : @sortAlpha mentionsCounted, 'mention'
-					count : @sortInt mentionsCounted
+					count : @sortCount mentionsCounted
 
 		sampleData
 
@@ -78,7 +78,7 @@ class SampleProcessor extends Abstract
 
 		data
 
-	sortInt : (data) =>
+	sortCount : (data) =>
 
 		data = _.sortBy(data, 'count').reverse()
 

@@ -1543,7 +1543,7 @@ SampleProcessor = (function(_super) {
     this._getHashtagsChrono = __bind(this._getHashtagsChrono, this);
     this._getWordsChrono = __bind(this._getWordsChrono, this);
     this._getCharsChrono = __bind(this._getCharsChrono, this);
-    this.sortInt = __bind(this.sortInt, this);
+    this.sortCount = __bind(this.sortCount, this);
     this.sortAlpha = __bind(this.sortAlpha, this);
     this.count = __bind(this.count, this);
     this.postProcess = __bind(this.postProcess, this);
@@ -1570,28 +1570,28 @@ SampleProcessor = (function(_super) {
         chrono: charsChrono,
         counted: {
           alpha: this.sortAlpha(charsCounted, 'char'),
-          count: this.sortInt(charsCounted)
+          count: this.sortCount(charsCounted)
         }
       },
       words: {
         chrono: wordsChrono,
         counted: {
           alpha: this.sortAlpha(wordsCounted, 'word'),
-          count: this.sortInt(wordsCounted)
+          count: this.sortCount(wordsCounted)
         }
       },
       hashtags: {
         chrono: hashtagsChrono,
         counted: {
           alpha: this.sortAlpha(hashtagsCounted, 'hashtag'),
-          count: this.sortInt(hashtagsCounted)
+          count: this.sortCount(hashtagsCounted)
         }
       },
       mentions: {
         chrono: mentionsChrono,
         counted: {
           alpha: this.sortAlpha(mentionsCounted, 'mention'),
-          count: this.sortInt(mentionsCounted)
+          count: this.sortCount(mentionsCounted)
         }
       }
     };
@@ -1647,7 +1647,7 @@ SampleProcessor = (function(_super) {
     return data;
   };
 
-  SampleProcessor.prototype.sortInt = function(data) {
+  SampleProcessor.prototype.sortCount = function(data) {
     data = _.sortBy(data, 'count').reverse();
     return data;
   };
