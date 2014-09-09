@@ -1,27 +1,43 @@
 AbstractModel = require '../AbstractModel'
 
+###
+	
+format for X
+
+> ARRAY - {{ X }} used in chronological order
+chrono : ""
+
+> ARRAYs - {{ X }} used and their frequency, sorted alphabetically / by frequency
+counted :
+	alpha : ""
+	count : ""
+
+###
+
 class ProcessedTweetsSampleModel extends AbstractModel
 
 	chars :
-
-		# ARRAY - chars used and their frequency
-		count : ""
-
-		# ARRAY - chars used, in order used
-		order : ""
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
 
 	words :
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
 
-		# ARRAY - words used and their frequency
-		count : ""
+	hashtags :
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
 
-		# ARRAY - words used, in order used
-		order : ""
-
-	# hashtags used, and their frequency
-	hashtags : ""
-
-	# mentions used, and their frequency
-	mentions : ""
+	mentions : 
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
 
 module.exports = ProcessedTweetsSampleModel

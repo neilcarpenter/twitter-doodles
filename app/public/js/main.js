@@ -1304,6 +1304,20 @@ var AbstractModel, ProcessedTweetsSampleModel,
 
 AbstractModel = require('../AbstractModel');
 
+
+/*
+	
+format for X
+
+> ARRAY - {{ X }} used in chronological order
+chrono : ""
+
+> ARRAYs - {{ X }} used and their frequency, sorted alphabetically / by frequency
+counted :
+	alpha : ""
+	count : ""
+ */
+
 ProcessedTweetsSampleModel = (function(_super) {
   __extends(ProcessedTweetsSampleModel, _super);
 
@@ -1312,18 +1326,36 @@ ProcessedTweetsSampleModel = (function(_super) {
   }
 
   ProcessedTweetsSampleModel.prototype.chars = {
-    count: "",
-    order: ""
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
   };
 
   ProcessedTweetsSampleModel.prototype.words = {
-    count: "",
-    order: ""
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
   };
 
-  ProcessedTweetsSampleModel.prototype.hashtags = "";
+  ProcessedTweetsSampleModel.prototype.hashtags = {
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
+  };
 
-  ProcessedTweetsSampleModel.prototype.mentions = "";
+  ProcessedTweetsSampleModel.prototype.mentions = {
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
+  };
 
   return ProcessedTweetsSampleModel;
 
