@@ -40,4 +40,22 @@ class ProcessedTweetsSampleModel extends AbstractModel
 			alpha : ""
 			count : ""
 
+	sources : 
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
+
+	linkHosts : 
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
+
+	places : 
+		chrono : ""
+		counted :
+			alpha : ""
+			count : ""
+
 module.exports = ProcessedTweetsSampleModel

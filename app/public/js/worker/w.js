@@ -2883,74 +2883,25 @@ SampleProcessor = (function(_super) {
 
   SampleProcessor.prototype.rawTweets = null;
 
+  SampleProcessor.prototype.labels = ['chars', 'words', 'hashtags', 'mentions', 'sources', 'linkHosts', 'places'];
+
   SampleProcessor.prototype.process = function(rawTweets) {
-    var charsChrono, charsCounted, hashtagsChrono, hashtagsCounted, linkHostsChrono, linkHostsCounted, mentionsChrono, mentionsCounted, placesChrono, placesCounted, sampleData, sourcesChrono, sourcesCounted, wordsChrono, wordsCounted;
+    var chrono, counted, label, sampleData, _i, _len, _ref;
     this.rawTweets = JSON.parse(JSON.stringify(rawTweets));
-    charsChrono = this._getCharsChrono();
-    wordsChrono = this._getWordsChrono();
-    hashtagsChrono = this._getHashtagsChrono();
-    mentionsChrono = this._getMentionsChrono();
-    sourcesChrono = this._getSourcesChrono();
-    linkHostsChrono = this._getLinkHostsChrono();
-    placesChrono = this._getPlacesChrono();
-    charsCounted = this.count(charsChrono, 'char');
-    wordsCounted = this.count(wordsChrono, 'word');
-    hashtagsCounted = this.count(hashtagsChrono, 'hashtag');
-    mentionsCounted = this.count(mentionsChrono, 'mention');
-    sourcesCounted = this.count(sourcesChrono, 'source');
-    linkHostsCounted = this.count(linkHostsChrono, 'host');
-    placesCounted = this.count(placesChrono, 'place');
-    sampleData = {
-      chars: {
-        chrono: charsChrono,
+    sampleData = {};
+    _ref = this.labels;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      label = _ref[_i];
+      chrono = this["_get" + (label.charAt(0).toUpperCase() + label.slice(1)) + "Chrono"]();
+      counted = this.count(chrono, label.substring(0, label.length - 1));
+      sampleData[label] = {
+        chrono: chrono,
         counted: {
-          alpha: this.sortAlpha(charsCounted, 'char'),
-          count: this.sortCount(charsCounted)
+          alpha: this.sortAlpha(counted, label.substring(0, label.length - 1)),
+          count: this.sortCount(counted)
         }
-      },
-      words: {
-        chrono: wordsChrono,
-        counted: {
-          alpha: this.sortAlpha(wordsCounted, 'word'),
-          count: this.sortCount(wordsCounted)
-        }
-      },
-      hashtags: {
-        chrono: hashtagsChrono,
-        counted: {
-          alpha: this.sortAlpha(hashtagsCounted, 'hashtag'),
-          count: this.sortCount(hashtagsCounted)
-        }
-      },
-      mentions: {
-        chrono: mentionsChrono,
-        counted: {
-          alpha: this.sortAlpha(mentionsCounted, 'mention'),
-          count: this.sortCount(mentionsCounted)
-        }
-      },
-      sources: {
-        chrono: sourcesChrono,
-        counted: {
-          alpha: this.sortAlpha(sourcesCounted, 'source'),
-          count: this.sortCount(sourcesCounted)
-        }
-      },
-      linkHosts: {
-        chrono: linkHostsChrono,
-        counted: {
-          alpha: this.sortAlpha(linkHostsCounted, 'host'),
-          count: this.sortCount(linkHostsCounted)
-        }
-      },
-      places: {
-        chrono: placesChrono,
-        counted: {
-          alpha: this.sortAlpha(placesCounted, 'place'),
-          count: this.sortCount(placesCounted)
-        }
-      }
-    };
+      };
+    }
     return sampleData;
   };
 

@@ -1360,6 +1360,30 @@ ProcessedTweetsSampleModel = (function(_super) {
     }
   };
 
+  ProcessedTweetsSampleModel.prototype.sources = {
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
+  };
+
+  ProcessedTweetsSampleModel.prototype.linkHosts = {
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
+  };
+
+  ProcessedTweetsSampleModel.prototype.places = {
+    chrono: "",
+    counted: {
+      alpha: "",
+      count: ""
+    }
+  };
+
   return ProcessedTweetsSampleModel;
 
 })(AbstractModel);

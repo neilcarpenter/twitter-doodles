@@ -8,62 +8,31 @@ class SampleProcessor extends Abstract
 
 	rawTweets : null
 
+	labels : [
+		'chars',
+		'words',
+		'hashtags',
+		'mentions',
+		'sources',
+		'linkHosts',
+		'places'
+	]
+
 	process : (rawTweets) =>
 
 		@rawTweets = JSON.parse JSON.stringify rawTweets
+		sampleData = {}
 
-		charsChrono     = @_getCharsChrono()
-		wordsChrono     = @_getWordsChrono()
-		hashtagsChrono  = @_getHashtagsChrono()
-		mentionsChrono  = @_getMentionsChrono()
-		sourcesChrono   = @_getSourcesChrono()
-		linkHostsChrono = @_getLinkHostsChrono()
-		placesChrono    = @_getPlacesChrono()
+		for label in @labels
 
-		charsCounted     = @count charsChrono, 'char'
-		wordsCounted     = @count wordsChrono, 'word'
-		hashtagsCounted  = @count hashtagsChrono, 'hashtag'
-		mentionsCounted  = @count mentionsChrono, 'mention'
-		sourcesCounted   = @count sourcesChrono, 'source'
-		linkHostsCounted = @count linkHostsChrono, 'host'
-		placesCounted    = @count placesChrono, 'place'
+			chrono  = @["_get#{label.charAt(0).toUpperCase()+label.slice(1)}Chrono"]()
+			counted = @count chrono, label.substring(0,label.length-1)
 
-		sampleData =
-			chars :
-				chrono : charsChrono
+			sampleData[label] =
+				chrono : chrono
 				counted :
-					alpha : @sortAlpha charsCounted, 'char'
-					count : @sortCount charsCounted
-			words :
-				chrono : wordsChrono
-				counted :
-					alpha : @sortAlpha wordsCounted, 'word'
-					count : @sortCount wordsCounted
-			hashtags :
-				chrono : hashtagsChrono
-				counted :
-					alpha : @sortAlpha hashtagsCounted, 'hashtag'
-					count : @sortCount hashtagsCounted
-			mentions : 
-				chrono : mentionsChrono
-				counted :
-					alpha : @sortAlpha mentionsCounted, 'mention'
-					count : @sortCount mentionsCounted
-			sources :
-				chrono : sourcesChrono
-				counted :
-					alpha : @sortAlpha sourcesCounted, 'source'
-					count : @sortCount sourcesCounted
-			linkHosts :
-				chrono : linkHostsChrono
-				counted :
-					alpha : @sortAlpha linkHostsCounted, 'host'
-					count : @sortCount linkHostsCounted
-			places :
-				chrono : placesChrono
-				counted :
-					alpha : @sortAlpha placesCounted, 'place'
-					count : @sortCount placesCounted
+					alpha : @sortAlpha counted, label.substring(0,label.length-1)
+					count : @sortCount counted
 
 		sampleData
 
