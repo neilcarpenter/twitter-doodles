@@ -2739,10 +2739,39 @@ function parseHost(host) {
 }.call(this));
 
 },{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee":[function(require,module,exports){
-var Abstract;
+var Abstract, PostProcessArray, PreProcessTweets,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+PreProcessTweets = require('./utils/PreProcessTweets');
+
+PostProcessArray = require('./utils/PostProcessArray');
 
 Abstract = (function() {
-  function Abstract() {}
+  function Abstract() {
+    this.postProcess = __bind(this.postProcess, this);
+    this.preProcess = __bind(this.preProcess, this);
+  }
+
+  Abstract.prototype.rawTweets = null;
+
+  Abstract.prototype.preProcess = function(commands) {
+    var command, tweets, _i, _len;
+    tweets = JSON.parse(JSON.stringify(this.rawTweets));
+    for (_i = 0, _len = commands.length; _i < _len; _i++) {
+      command = commands[_i];
+      tweets = PreProcessTweets[command](tweets);
+    }
+    return tweets;
+  };
+
+  Abstract.prototype.postProcess = function(data, commands) {
+    var command, _i, _len;
+    for (_i = 0, _len = commands.length; _i < _len; _i++) {
+      command = commands[_i];
+      data = PostProcessArray[command](data);
+    }
+    return data;
+  };
 
   return Abstract;
 
@@ -2751,7 +2780,7 @@ Abstract = (function() {
 module.exports = Abstract;
 
 
-},{}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Main.coffee":[function(require,module,exports){
+},{"./utils/PostProcessArray":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee","./utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Main.coffee":[function(require,module,exports){
 var Cruncher, ENV, cruncher;
 
 Cruncher = require('./cruncher/Cruncher');
@@ -2846,7 +2875,7 @@ module.exports = Cruncher;
 
 
 },{"../sample/SampleProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee","../tweets/TweetsProcessor":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/sample/SampleProcessor.coffee":[function(require,module,exports){
-var Abstract, PostProcessArray, PreProcessTweets, SampleProcessor, url, _,
+var Abstract, SampleProcessor, url, _,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -2856,10 +2885,6 @@ _ = require('underscore');
 url = require('url');
 
 Abstract = require('../Abstract');
-
-PreProcessTweets = require('../utils/PreProcessTweets');
-
-PostProcessArray = require('../utils/PostProcessArray');
 
 SampleProcessor = (function(_super) {
   __extends(SampleProcessor, _super);
@@ -2875,13 +2900,9 @@ SampleProcessor = (function(_super) {
     this.sortCount = __bind(this.sortCount, this);
     this.sortAlpha = __bind(this.sortAlpha, this);
     this.count = __bind(this.count, this);
-    this.postProcess = __bind(this.postProcess, this);
-    this.preProcess = __bind(this.preProcess, this);
     this.process = __bind(this.process, this);
     return SampleProcessor.__super__.constructor.apply(this, arguments);
   }
-
-  SampleProcessor.prototype.rawTweets = null;
 
   SampleProcessor.prototype.labels = ['chars', 'words', 'hashtags', 'mentions', 'sources', 'linkHosts', 'places'];
 
@@ -2903,25 +2924,6 @@ SampleProcessor = (function(_super) {
       };
     }
     return sampleData;
-  };
-
-  SampleProcessor.prototype.preProcess = function(commands) {
-    var command, tweets, _i, _len;
-    tweets = JSON.parse(JSON.stringify(this.rawTweets));
-    for (_i = 0, _len = commands.length; _i < _len; _i++) {
-      command = commands[_i];
-      tweets = PreProcessTweets[command](tweets);
-    }
-    return tweets;
-  };
-
-  SampleProcessor.prototype.postProcess = function(data, commands) {
-    var command, _i, _len;
-    for (_i = 0, _len = commands.length; _i < _len; _i++) {
-      command = commands[_i];
-      data = PostProcessArray[command](data);
-    }
-    return data;
   };
 
   SampleProcessor.prototype.count = function(data, label) {
@@ -3060,11 +3062,13 @@ SampleProcessor = (function(_super) {
 module.exports = SampleProcessor;
 
 
-},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PostProcessArray":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee","underscore":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/underscore/underscore.js","url":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/browserify/node_modules/url/url.js"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
-var Abstract, PreProcessTweets, TweetsProcessor,
+},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","underscore":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/underscore/underscore.js","url":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/browserify/node_modules/url/url.js"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/tweets/TweetsProcessor.coffee":[function(require,module,exports){
+var Abstract, PreProcessTweets, TweetsProcessor, _,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
 
 Abstract = require('../Abstract');
 
@@ -3074,23 +3078,119 @@ TweetsProcessor = (function(_super) {
   __extends(TweetsProcessor, _super);
 
   function TweetsProcessor() {
+    this._processDate = __bind(this._processDate, this);
+    this._processFavourites = __bind(this._processFavourites, this);
+    this._processRetweets = __bind(this._processRetweets, this);
+    this._processMedia = __bind(this._processMedia, this);
+    this._processHashtags = __bind(this._processHashtags, this);
+    this._processMentions = __bind(this._processMentions, this);
+    this._processWords = __bind(this._processWords, this);
+    this._processChars = __bind(this._processChars, this);
     this.process = __bind(this.process, this);
     return TweetsProcessor.__super__.constructor.apply(this, arguments);
   }
 
-  TweetsProcessor.prototype.rawTweets = null;
+  TweetsProcessor.prototype.processedTweets = null;
 
-  TweetsProcessor.prototype.noLinkTweets = null;
+  TweetsProcessor.prototype.labels = ['chars', 'words', 'mentions', 'hashtags', 'media', 'retweets', 'favourites', 'date'];
 
   TweetsProcessor.prototype.process = function(rawTweets) {
-    var tweet, _i, _len, _ref;
+    var label, tweet, _i, _j, _len, _len1, _ref, _ref1;
     this.rawTweets = JSON.parse(JSON.stringify(rawTweets));
+    this.processedTweets = [];
     _ref = this.rawTweets;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       tweet = _ref[_i];
-      tweet.TW_PROCESSED = true;
+      this.processedTweets.push({
+        id_str: tweet.id_str
+      });
     }
-    return this.rawTweets;
+    _ref1 = this.labels;
+    for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+      label = _ref1[_j];
+      this["_process" + (label.charAt(0).toUpperCase() + label.slice(1))]();
+    }
+    return this.processedTweets;
+  };
+
+  TweetsProcessor.prototype._processChars = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].chars = tweet.text.length;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processWords = function() {
+    var i, tweet, tweets, _i, _len;
+    tweets = this.preProcess(['removeLinks', 'removeMentions', 'unescape', 'removeExtraSpaces', 'removePunctuation', 'removeQuotations', 'toLowerCase']);
+    for (i = _i = 0, _len = tweets.length; _i < _len; i = ++_i) {
+      tweet = tweets[i];
+      this.processedTweets[i].words = tweet.text.split(' ').length;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processMentions = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].mentions = tweet.entities.user_mentions;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processHashtags = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].hashtags = tweet.entities.hashtags;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processMedia = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].media = tweet.entities.media || [];
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processRetweets = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].retweets = tweet.retweet_count;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processFavourites = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].favourites = tweet.favourite_count;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processDate = function() {
+    var i, tweet, _i, _len, _ref;
+    _ref = this.rawTweets;
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      tweet = _ref[i];
+      this.processedTweets[i].created_at = tweet.created_at;
+    }
+    return null;
   };
 
   return TweetsProcessor;
@@ -3100,7 +3200,7 @@ TweetsProcessor = (function(_super) {
 module.exports = TweetsProcessor;
 
 
-},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee":[function(require,module,exports){
+},{"../Abstract":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/Abstract.coffee","../utils/PreProcessTweets":"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PreProcessTweets.coffee","underscore":"/Users/neilcarpenter/Sites/twitter-doodles/node_modules/underscore/underscore.js"}],"/Users/neilcarpenter/Sites/twitter-doodles/project/worker/utils/PostProcessArray.coffee":[function(require,module,exports){
 var PostProcessArray;
 
 PostProcessArray = (function() {

@@ -1,12 +1,8 @@
 _                = require 'underscore'
 url              = require 'url'
 Abstract         = require '../Abstract'
-PreProcessTweets = require '../utils/PreProcessTweets'
-PostProcessArray = require '../utils/PostProcessArray'
 
 class SampleProcessor extends Abstract
-
-	rawTweets : null
 
 	labels : [
 		'chars',
@@ -35,19 +31,6 @@ class SampleProcessor extends Abstract
 					count : @sortCount counted
 
 		sampleData
-
-	preProcess : (commands) =>
-
-		tweets  = JSON.parse JSON.stringify @rawTweets
-		(tweets = PreProcessTweets[command] tweets) for command in commands
-
-		tweets
-
-	postProcess : (data, commands) =>
-
-		(data = PostProcessArray[command] data) for command in commands
-
-		data
 
 	count : (data, label) =>
 
