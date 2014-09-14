@@ -4,8 +4,10 @@ class ProcessedTweetsModel extends AbstractModel
 
 	defaults :
 
+		id_str : ""
+
 		# INT - string length of tweet
-		length : ""
+		# length : ""
 
 		# ARRAY - chars used, and their frequency
 		chars : ""
@@ -14,24 +16,21 @@ class ProcessedTweetsModel extends AbstractModel
 		words : ""
 
 		# ARRAY
-		mentions : ""
+		mentions : []
 
 		# ARRAY
-		hashtags : ""
+		hashtags : []
 
 		# ARRAY
-		photos : ""
+		media : []
 
 		# INT
-		rt_count : ""
+		retweets : ""
 
 		# INT
-		fav_count : ""
+		favourites : ""
 
 		# STR
-		time : ""
-
-		# STR
-		date : ""
+		created_at : ""
 
 module.exports = ProcessedTweetsModel

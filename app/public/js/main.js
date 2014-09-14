@@ -1035,9 +1035,12 @@ UserData = (function(_super) {
     crunch = this.TD().appData.cruncher.crunch({
       tweets: data.tweets
     });
-    crunch.done(function(data) {
-      return console.log("CRUNCH DONE!!!");
-    });
+    crunch.done((function(_this) {
+      return function(data) {
+        _this.tweetsData.add(data.tweetsData);
+        return _this.tweetsSample.set(data.tweetsSample);
+      };
+    })(this));
     return null;
   };
 
@@ -1281,16 +1284,15 @@ ProcessedTweetsModel = (function(_super) {
   }
 
   ProcessedTweetsModel.prototype.defaults = {
-    length: "",
+    id_str: "",
     chars: "",
     words: "",
-    mentions: "",
-    hashtags: "",
-    photos: "",
-    rt_count: "",
-    fav_count: "",
-    time: "",
-    date: ""
+    mentions: [],
+    hashtags: [],
+    media: [],
+    retweets: "",
+    favourites: "",
+    created_at: ""
   };
 
   return ProcessedTweetsModel;

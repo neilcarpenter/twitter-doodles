@@ -110,9 +110,9 @@ class UserData extends AbstractData
 
 		crunch = @TD().appData.cruncher.crunch tweets : data.tweets
 
-		crunch.done (data) ->
-
-			console.log "CRUNCH DONE!!!"
+		crunch.done (data) =>
+			@tweetsData.add data.tweetsData
+			@tweetsSample.set data.tweetsSample
 
 		null
 
