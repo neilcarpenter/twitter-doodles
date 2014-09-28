@@ -34,7 +34,10 @@ getTweets = (req, res) ->
 			console.log "calling twitter...? hello....? ", params
 
 			# don't include reference tweet twice
-			if max_id then data.shift()
+			if data
+				if max_id then data.shift()
+			else
+				res.json tweets : tweets
 
 			for tweet in data
 				target--

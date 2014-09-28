@@ -1,0 +1,1438 @@
+[
+  {
+    "id_str": "508576936558600192",
+    "chars": 66,
+    "words": 7,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Sep 07 11:26:05 +0000 2014"
+  },
+  {
+    "id_str": "508576829050200064",
+    "chars": 102,
+    "words": 16,
+    "mentions": [
+      {
+        "screen_name": "bobthecow",
+        "name": "Justin Hileman",
+        "id": 6813882,
+        "id_str": "6813882",
+        "indices": [
+          92,
+          102
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Sep 07 11:25:39 +0000 2014"
+  },
+  {
+    "id_str": "508339304230162432",
+    "chars": 69,
+    "words": 7,
+    "mentions": [
+      {
+        "screen_name": "thegraftonnw5",
+        "name": "The Grafton",
+        "id": 557758898,
+        "id_str": "557758898",
+        "indices": [
+          7,
+          21
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sat Sep 06 19:41:49 +0000 2014"
+  },
+  {
+    "id_str": "508315278204497920",
+    "chars": 50,
+    "words": 6,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sat Sep 06 18:06:21 +0000 2014"
+  },
+  {
+    "id_str": "508312874817970177",
+    "chars": 118,
+    "words": 13,
+    "mentions": [
+      {
+        "screen_name": "CamdenBrewery",
+        "name": "Camden Town Brewery",
+        "id": 234773440,
+        "id_str": "234773440",
+        "indices": [
+          56,
+          70
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 508312874583085060,
+        "id_str": "508312874583085056",
+        "indices": [
+          96,
+          118
+        ],
+        "media_url": "http://pbs.twimg.com/media/Bw3j3cRIUAAhlPI.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/Bw3j3cRIUAAhlPI.jpg",
+        "url": "http://t.co/G5E3WfDIiq",
+        "display_url": "pic.twitter.com/G5E3WfDIiq",
+        "expanded_url": "http://twitter.com/NeilCarpenter/status/508312874817970177/photo/1",
+        "type": "photo",
+        "sizes": {
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "small": {
+            "w": 340,
+            "h": 453,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 720,
+            "h": 960,
+            "resize": "fit"
+          },
+          "medium": {
+            "w": 600,
+            "h": 800,
+            "resize": "fit"
+          }
+        }
+      }
+    ],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sat Sep 06 17:56:48 +0000 2014"
+  },
+  {
+    "id_str": "507929120073089024",
+    "chars": 71,
+    "words": 10,
+    "mentions": [
+      {
+        "screen_name": "c4marcus",
+        "name": "Marcus Edwards",
+        "id": 95973642,
+        "id_str": "95973642",
+        "indices": [
+          3,
+          12
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 507839558386331650,
+        "id_str": "507839558386331649",
+        "indices": [
+          49,
+          71
+        ],
+        "media_url": "http://pbs.twimg.com/media/Bww1Y0CCMAEYLPi.png",
+        "media_url_https": "https://pbs.twimg.com/media/Bww1Y0CCMAEYLPi.png",
+        "url": "http://t.co/vBs3xQJkX4",
+        "display_url": "pic.twitter.com/vBs3xQJkX4",
+        "expanded_url": "http://twitter.com/c4marcus/status/507839562769780736/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 899,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "small": {
+            "w": 340,
+            "h": 509,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 639,
+            "h": 957,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 507839562769780740,
+        "source_status_id_str": "507839562769780736"
+      }
+    ],
+    "retweets": 3660,
+    "favourites": "",
+    "created_at": "Fri Sep 05 16:31:53 +0000 2014"
+  },
+  {
+    "id_str": "507815817879105537",
+    "chars": 109,
+    "words": 9,
+    "mentions": [
+      {
+        "screen_name": "Upskydown",
+        "name": "Henry Daubrez",
+        "id": 120711792,
+        "id_str": "120711792",
+        "indices": [
+          3,
+          13
+        ]
+      },
+      {
+        "screen_name": "quayola",
+        "name": "Quayola",
+        "id": 51478046,
+        "id_str": "51478046",
+        "indices": [
+          60,
+          68
+        ]
+      },
+      {
+        "screen_name": "onclebk2",
+        "name": "Guillaume Nicollet",
+        "id": 2499107311,
+        "id_str": "2499107311",
+        "indices": [
+          98,
+          107
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 3,
+    "favourites": "",
+    "created_at": "Fri Sep 05 09:01:40 +0000 2014"
+  },
+  {
+    "id_str": "507656952269516800",
+    "chars": 107,
+    "words": 13,
+    "mentions": [
+      {
+        "screen_name": "ShaunKitchener",
+        "name": "Shaun Kitchener",
+        "id": 18676749,
+        "id_str": "18676749",
+        "indices": [
+          3,
+          18
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 507565294986874900,
+        "id_str": "507565294986874880",
+        "indices": [
+          85,
+          107
+        ],
+        "media_url": "http://pbs.twimg.com/media/Bws78lQCUAAQS1K.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/Bws78lQCUAAQS1K.jpg",
+        "url": "http://t.co/xPJQ78gsnl",
+        "display_url": "pic.twitter.com/xPJQ78gsnl",
+        "expanded_url": "http://twitter.com/ShaunKitchener/status/507565297973624832/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 658,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "large": {
+            "w": 875,
+            "h": 960,
+            "resize": "fit"
+          },
+          "small": {
+            "w": 340,
+            "h": 373,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 507565297973624800,
+        "source_status_id_str": "507565297973624832"
+      }
+    ],
+    "retweets": 4365,
+    "favourites": "",
+    "created_at": "Thu Sep 04 22:30:23 +0000 2014"
+  },
+  {
+    "id_str": "507595119407534080",
+    "chars": 56,
+    "words": 8,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Sep 04 18:24:41 +0000 2014"
+  },
+  {
+    "id_str": "507566248000258048",
+    "chars": 115,
+    "words": 11,
+    "mentions": [
+      {
+        "screen_name": "felixturner",
+        "name": "Felix Turner",
+        "id": 38215107,
+        "id_str": "38215107",
+        "indices": [
+          17,
+          29
+        ]
+      },
+      {
+        "screen_name": "sarrimaxime",
+        "name": "Sarri Maxime",
+        "id": 125314761,
+        "id_str": "125314761",
+        "indices": [
+          102,
+          114
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Sep 04 16:29:58 +0000 2014"
+  },
+  {
+    "id_str": "507466026834223104",
+    "chars": 29,
+    "words": 2,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Sep 04 09:51:43 +0000 2014"
+  },
+  {
+    "id_str": "507456919771303937",
+    "chars": 145,
+    "words": 15,
+    "mentions": [
+      {
+        "screen_name": "brunoimbrizi",
+        "name": "bruno imbrizi",
+        "id": 31144002,
+        "id_str": "31144002",
+        "indices": [
+          66,
+          79
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Sep 04 09:15:32 +0000 2014"
+  },
+  {
+    "id_str": "507432335785336833",
+    "chars": 57,
+    "words": 6,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Sep 04 07:37:51 +0000 2014"
+  },
+  {
+    "id_str": "507168647434235904",
+    "chars": 75,
+    "words": 8,
+    "mentions": [
+      {
+        "screen_name": "jashkenas",
+        "name": "Jeremy Ashkenas",
+        "id": 123323498,
+        "id_str": "123323498",
+        "indices": [
+          65,
+          75
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Wed Sep 03 14:10:02 +0000 2014"
+  },
+  {
+    "id_str": "507125515543904256",
+    "chars": 29,
+    "words": 2,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Wed Sep 03 11:18:39 +0000 2014"
+  },
+  {
+    "id_str": "506056723363557377",
+    "chars": 66,
+    "words": 9,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Aug 31 12:31:39 +0000 2014"
+  },
+  {
+    "id_str": "505750002942361600",
+    "chars": 122,
+    "words": 14,
+    "mentions": [],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 505750002652938240,
+        "id_str": "505750002652938240",
+        "indices": [
+          100,
+          122
+        ],
+        "media_url": "http://pbs.twimg.com/media/BwTI8qVIAAANrqR.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/BwTI8qVIAAANrqR.jpg",
+        "url": "http://t.co/XAwxXkVUu1",
+        "display_url": "pic.twitter.com/XAwxXkVUu1",
+        "expanded_url": "http://twitter.com/NeilCarpenter/status/505750002942361600/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 450,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "small": {
+            "w": 340,
+            "h": 255,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 960,
+            "h": 720,
+            "resize": "fit"
+          }
+        }
+      }
+    ],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sat Aug 30 16:12:51 +0000 2014"
+  },
+  {
+    "id_str": "505401443931938816",
+    "chars": 77,
+    "words": 11,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Fri Aug 29 17:07:48 +0000 2014"
+  },
+  {
+    "id_str": "505354682760708097",
+    "chars": 100,
+    "words": 14,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Fri Aug 29 14:02:00 +0000 2014"
+  },
+  {
+    "id_str": "505328134053724160",
+    "chars": 112,
+    "words": 13,
+    "mentions": [
+      {
+        "screen_name": "williamapan",
+        "name": "William Mapan",
+        "id": 48840589,
+        "id_str": "48840589",
+        "indices": [
+          29,
+          41
+        ]
+      },
+      {
+        "screen_name": "rubxkub",
+        "name": "Gilles Tossoukpé",
+        "id": 34683534,
+        "id_str": "34683534",
+        "indices": [
+          103,
+          111
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Fri Aug 29 12:16:30 +0000 2014"
+  },
+  {
+    "id_str": "505271081239068672",
+    "chars": 40,
+    "words": 5,
+    "mentions": [
+      {
+        "screen_name": "paulcarvill",
+        "name": "Paul Carvill",
+        "id": 760670,
+        "id_str": "760670",
+        "indices": [
+          0,
+          12
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Fri Aug 29 08:29:47 +0000 2014"
+  },
+  {
+    "id_str": "505001230524248064",
+    "chars": 52,
+    "words": 5,
+    "mentions": [
+      {
+        "screen_name": "stinkdigital",
+        "name": "Stinkdigital",
+        "id": 18684157,
+        "id_str": "18684157",
+        "indices": [
+          0,
+          13
+        ]
+      },
+      {
+        "screen_name": "silviopaganini",
+        "name": "Silvio Paganini",
+        "id": 16465420,
+        "id_str": "16465420",
+        "indices": [
+          14,
+          29
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Aug 28 14:37:30 +0000 2014"
+  },
+  {
+    "id_str": "505001099518951425",
+    "chars": 71,
+    "words": 5,
+    "mentions": [
+      {
+        "screen_name": "stinkdigital",
+        "name": "Stinkdigital",
+        "id": 18684157,
+        "id_str": "18684157",
+        "indices": [
+          0,
+          13
+        ]
+      },
+      {
+        "screen_name": "silviopaganini",
+        "name": "Silvio Paganini",
+        "id": 16465420,
+        "id_str": "16465420",
+        "indices": [
+          14,
+          29
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Aug 28 14:36:59 +0000 2014"
+  },
+  {
+    "id_str": "504603378232877056",
+    "chars": 28,
+    "words": 3,
+    "mentions": [
+      {
+        "screen_name": "andykenward",
+        "name": "Andy Kenward",
+        "id": 9798182,
+        "id_str": "9798182",
+        "indices": [
+          0,
+          12
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Wed Aug 27 12:16:35 +0000 2014"
+  },
+  {
+    "id_str": "504602389828354049",
+    "chars": 33,
+    "words": 3,
+    "mentions": [
+      {
+        "screen_name": "idiot",
+        "name": "Visual Idiot",
+        "id": 202571491,
+        "id_str": "202571491",
+        "indices": [
+          3,
+          9
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 504601024032567300,
+        "id_str": "504601024032567296",
+        "indices": [
+          11,
+          33
+        ],
+        "media_url": "http://pbs.twimg.com/media/BwCz9TbCcAACqIX.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/BwCz9TbCcAACqIX.jpg",
+        "url": "http://t.co/2Y6TOkqgFh",
+        "display_url": "pic.twitter.com/2Y6TOkqgFh",
+        "expanded_url": "http://twitter.com/idiot/status/504601025488384001/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 436,
+            "resize": "fit"
+          },
+          "small": {
+            "w": 340,
+            "h": 247,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "large": {
+            "w": 848,
+            "h": 616,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 504601025488384000,
+        "source_status_id_str": "504601025488384001"
+      }
+    ],
+    "retweets": 1354,
+    "favourites": "",
+    "created_at": "Wed Aug 27 12:12:39 +0000 2014"
+  },
+  {
+    "id_str": "504601837799219201",
+    "chars": 89,
+    "words": 13,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Wed Aug 27 12:10:27 +0000 2014"
+  },
+  {
+    "id_str": "504565908296454144",
+    "chars": 52,
+    "words": 7,
+    "mentions": [
+      {
+        "screen_name": "twitter",
+        "name": "Twitter",
+        "id": 783214,
+        "id_str": "783214",
+        "indices": [
+          17,
+          25
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 504565904261541900,
+        "id_str": "504565904261541888",
+        "indices": [
+          29,
+          51
+        ],
+        "media_url": "http://pbs.twimg.com/media/BwCUBEFIcAANDyT.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/BwCUBEFIcAANDyT.jpg",
+        "url": "http://t.co/TIYNGghK0c",
+        "display_url": "pic.twitter.com/TIYNGghK0c",
+        "expanded_url": "http://twitter.com/NeilCarpenter/status/504565908296454144/photo/1",
+        "type": "photo",
+        "sizes": {
+          "small": {
+            "w": 340,
+            "h": 604,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 576,
+            "h": 1024,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "medium": {
+            "w": 576,
+            "h": 1024,
+            "resize": "fit"
+          }
+        }
+      }
+    ],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Wed Aug 27 09:47:41 +0000 2014"
+  },
+  {
+    "id_str": "504532688863514625",
+    "chars": 127,
+    "words": 13,
+    "mentions": [
+      {
+        "screen_name": "zenorocha",
+        "name": "Zeno Rocha",
+        "id": 24701368,
+        "id_str": "24701368",
+        "indices": [
+          3,
+          13
+        ]
+      },
+      {
+        "screen_name": "gruntjs",
+        "name": "Grunt",
+        "id": 553090178,
+        "id_str": "553090178",
+        "indices": [
+          43,
+          51
+        ]
+      },
+      {
+        "screen_name": "gulpjs",
+        "name": "gulp",
+        "id": 2266580234,
+        "id_str": "2266580234",
+        "indices": [
+          58,
+          65
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 48,
+    "favourites": "",
+    "created_at": "Wed Aug 27 07:35:41 +0000 2014"
+  },
+  {
+    "id_str": "504406853770432513",
+    "chars": 65,
+    "words": 6,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Tue Aug 26 23:15:40 +0000 2014"
+  },
+  {
+    "id_str": "504401022362480641",
+    "chars": 50,
+    "words": 4,
+    "mentions": [
+      {
+        "screen_name": "benschwarz",
+        "name": "Ben Schwarz",
+        "id": 14431882,
+        "id_str": "14431882",
+        "indices": [
+          3,
+          14
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 5,
+    "favourites": "",
+    "created_at": "Tue Aug 26 22:52:29 +0000 2014"
+  },
+  {
+    "id_str": "503616533151895554",
+    "chars": 53,
+    "words": 8,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Aug 24 18:55:12 +0000 2014"
+  },
+  {
+    "id_str": "503575973921841155",
+    "chars": 66,
+    "words": 8,
+    "mentions": [
+      {
+        "screen_name": "paulhutcheon",
+        "name": "Paul Hutcheon",
+        "id": 233582443,
+        "id_str": "233582443",
+        "indices": [
+          3,
+          16
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 502429616284639200,
+        "id_str": "502429616284639233",
+        "indices": [
+          44,
+          66
+        ],
+        "media_url": "http://pbs.twimg.com/media/Bvj9EvNIIAE1_4b.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/Bvj9EvNIIAE1_4b.jpg",
+        "url": "http://t.co/feqf5IM4Sn",
+        "display_url": "pic.twitter.com/feqf5IM4Sn",
+        "expanded_url": "http://twitter.com/Martin_R_W/status/502429619359072257/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 503,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 1024,
+            "h": 858,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "small": {
+            "w": 340,
+            "h": 285,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 502429619359072260,
+        "source_status_id_str": "502429619359072257"
+      }
+    ],
+    "retweets": 4216,
+    "favourites": "",
+    "created_at": "Sun Aug 24 16:14:02 +0000 2014"
+  },
+  {
+    "id_str": "503564764686352384",
+    "chars": 54,
+    "words": 6,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Aug 24 15:29:30 +0000 2014"
+  },
+  {
+    "id_str": "503538602631237632",
+    "chars": 76,
+    "words": 7,
+    "mentions": [
+      {
+        "screen_name": "TheSpaniardsInn",
+        "name": "The Spaniards Inn",
+        "id": 425039466,
+        "id_str": "425039466",
+        "indices": [
+          7,
+          23
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sun Aug 24 13:45:32 +0000 2014"
+  },
+  {
+    "id_str": "503151836493529088",
+    "chars": 53,
+    "words": 8,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 1,
+    "favourites": "",
+    "created_at": "Sat Aug 23 12:08:40 +0000 2014"
+  },
+  {
+    "id_str": "502505560714268672",
+    "chars": 112,
+    "words": 18,
+    "mentions": [
+      {
+        "screen_name": "evj",
+        "name": "Emma Jackson",
+        "id": 17156056,
+        "id_str": "17156056",
+        "indices": [
+          3,
+          7
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 1,
+    "favourites": "",
+    "created_at": "Thu Aug 21 17:20:36 +0000 2014"
+  },
+  {
+    "id_str": "502492524741951488",
+    "chars": 55,
+    "words": 4,
+    "mentions": [
+      {
+        "screen_name": "tldrwikipedia",
+        "name": "tldrwikipedia",
+        "id": 2391067616,
+        "id_str": "2391067616",
+        "indices": [
+          3,
+          17
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 502471572058554400,
+        "id_str": "502471572058554369",
+        "indices": [
+          33,
+          55
+        ],
+        "media_url": "http://pbs.twimg.com/media/BvkjO4pIQAEea4B.png",
+        "media_url_https": "https://pbs.twimg.com/media/BvkjO4pIQAEea4B.png",
+        "url": "http://t.co/RfX7zzuJUM",
+        "display_url": "pic.twitter.com/RfX7zzuJUM",
+        "expanded_url": "http://twitter.com/tldrwikipedia/status/502471572612198400/photo/1",
+        "type": "photo",
+        "sizes": {
+          "small": {
+            "w": 340,
+            "h": 142,
+            "resize": "fit"
+          },
+          "large": {
+            "w": 570,
+            "h": 238,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "medium": {
+            "w": 570,
+            "h": 238,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 502471572612198400,
+        "source_status_id_str": "502471572612198400"
+      }
+    ],
+    "retweets": 2412,
+    "favourites": "",
+    "created_at": "Thu Aug 21 16:28:48 +0000 2014"
+  },
+  {
+    "id_str": "502408269055668224",
+    "chars": 80,
+    "words": 10,
+    "mentions": [
+      {
+        "screen_name": "drcongo",
+        "name": "Andy Beaumont",
+        "id": 14407166,
+        "id_str": "14407166",
+        "indices": [
+          3,
+          11
+        ]
+      },
+      {
+        "screen_name": "OnTrees",
+        "name": "OnTrees",
+        "id": 601072073,
+        "id_str": "601072073",
+        "indices": [
+          24,
+          32
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 502374429456752640,
+        "id_str": "502374429456752640",
+        "indices": [
+          58,
+          80
+        ],
+        "media_url": "http://pbs.twimg.com/media/BvjK4cQCYAAhY2R.png",
+        "media_url_https": "https://pbs.twimg.com/media/BvjK4cQCYAAhY2R.png",
+        "url": "http://t.co/UagE50uULq",
+        "display_url": "pic.twitter.com/UagE50uULq",
+        "expanded_url": "http://twitter.com/drcongo/status/502374430463774720/photo/1",
+        "type": "photo",
+        "sizes": {
+          "small": {
+            "w": 340,
+            "h": 166,
+            "resize": "fit"
+          },
+          "medium": {
+            "w": 600,
+            "h": 293,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "large": {
+            "w": 1024,
+            "h": 500,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 502374430463774700,
+        "source_status_id_str": "502374430463774720"
+      }
+    ],
+    "retweets": 6,
+    "favourites": "",
+    "created_at": "Thu Aug 21 10:54:00 +0000 2014"
+  },
+  {
+    "id_str": "502197883148697600",
+    "chars": 113,
+    "words": 15,
+    "mentions": [
+      {
+        "screen_name": "chriseppstein",
+        "name": "Chris Eppstein",
+        "id": 14148091,
+        "id_str": "14148091",
+        "indices": [
+          3,
+          17
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 31,
+    "favourites": "",
+    "created_at": "Wed Aug 20 20:58:00 +0000 2014"
+  },
+  {
+    "id_str": "501805253210406912",
+    "chars": 72,
+    "words": 7,
+    "mentions": [
+      {
+        "screen_name": "LAfitnessUK_HQ",
+        "name": "LA fitness",
+        "id": 190633549,
+        "id_str": "190633549",
+        "indices": [
+          7,
+          22
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Tue Aug 19 18:57:50 +0000 2014"
+  },
+  {
+    "id_str": "501475545440587776",
+    "chars": 44,
+    "words": 4,
+    "mentions": [
+      {
+        "screen_name": "Cabbibo",
+        "name": "cabbibo",
+        "id": 185744472,
+        "id_str": "185744472",
+        "indices": [
+          36,
+          44
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Mon Aug 18 21:07:41 +0000 2014"
+  },
+  {
+    "id_str": "501396280728629248",
+    "chars": 98,
+    "words": 13,
+    "mentions": [
+      {
+        "screen_name": "terrytreedavid",
+        "name": "David Sheldon-hicks",
+        "id": 225509413,
+        "id_str": "225509413",
+        "indices": [
+          50,
+          65
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Mon Aug 18 15:52:43 +0000 2014"
+  },
+  {
+    "id_str": "498155505148497920",
+    "chars": 29,
+    "words": 2,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Sat Aug 09 17:15:02 +0000 2014"
+  },
+  {
+    "id_str": "497835644576473088",
+    "chars": 42,
+    "words": 3,
+    "mentions": [],
+    "hashtags": [],
+    "media": [],
+    "retweets": 1,
+    "favourites": "",
+    "created_at": "Fri Aug 08 20:04:01 +0000 2014"
+  },
+  {
+    "id_str": "497748784705974272",
+    "chars": 61,
+    "words": 8,
+    "mentions": [
+      {
+        "screen_name": "emilymcmc",
+        "name": "Emily McManus",
+        "id": 4347461,
+        "id_str": "4347461",
+        "indices": [
+          3,
+          13
+        ]
+      }
+    ],
+    "hashtags": [],
+    "media": [
+      {
+        "id": 497389625267462140,
+        "id_str": "497389625267462144",
+        "indices": [
+          39,
+          61
+        ],
+        "media_url": "http://pbs.twimg.com/media/BucVOpkIIAASNjE.png",
+        "media_url_https": "https://pbs.twimg.com/media/BucVOpkIIAASNjE.png",
+        "url": "http://t.co/9BtO4IjBTE",
+        "display_url": "pic.twitter.com/9BtO4IjBTE",
+        "expanded_url": "http://twitter.com/emilymcmc/status/497389626349608960/photo/1",
+        "type": "photo",
+        "sizes": {
+          "large": {
+            "w": 802,
+            "h": 273,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "small": {
+            "w": 340,
+            "h": 116,
+            "resize": "fit"
+          },
+          "medium": {
+            "w": 600,
+            "h": 204,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 497389626349608960,
+        "source_status_id_str": "497389626349608960"
+      }
+    ],
+    "retweets": 3999,
+    "favourites": "",
+    "created_at": "Fri Aug 08 14:18:52 +0000 2014"
+  },
+  {
+    "id_str": "497492717870784513",
+    "chars": 95,
+    "words": 12,
+    "mentions": [
+      {
+        "screen_name": "SciencePorn",
+        "name": "SciencePorn",
+        "id": 572225652,
+        "id_str": "572225652",
+        "indices": [
+          3,
+          15
+        ]
+      }
+    ],
+    "hashtags": [
+      {
+        "text": "mathporn",
+        "indices": [
+          63,
+          72
+        ]
+      }
+    ],
+    "media": [
+      {
+        "id": 497492134363422700,
+        "id_str": "497492134363422720",
+        "indices": [
+          73,
+          95
+        ],
+        "media_url": "http://pbs.twimg.com/media/BudyddtIYAAPoiE.jpg",
+        "media_url_https": "https://pbs.twimg.com/media/BudyddtIYAAPoiE.jpg",
+        "url": "http://t.co/3Kb7LLqPhC",
+        "display_url": "pic.twitter.com/3Kb7LLqPhC",
+        "expanded_url": "http://twitter.com/SciencePorn/status/497492134573113344/photo/1",
+        "type": "photo",
+        "sizes": {
+          "medium": {
+            "w": 600,
+            "h": 600,
+            "resize": "fit"
+          },
+          "thumb": {
+            "w": 150,
+            "h": 150,
+            "resize": "crop"
+          },
+          "large": {
+            "w": 960,
+            "h": 960,
+            "resize": "fit"
+          },
+          "small": {
+            "w": 340,
+            "h": 340,
+            "resize": "fit"
+          }
+        },
+        "source_status_id": 497492134573113340,
+        "source_status_id_str": "497492134573113344"
+      }
+    ],
+    "retweets": 3307,
+    "favourites": "",
+    "created_at": "Thu Aug 07 21:21:21 +0000 2014"
+  },
+  {
+    "id_str": "497410047677595648",
+    "chars": 37,
+    "words": 5,
+    "mentions": [
+      {
+        "screen_name": "theafrix",
+        "name": "Tom Wysocki",
+        "id": 481943747,
+        "id_str": "481943747",
+        "indices": [
+          0,
+          9
+        ]
+      }
+    ],
+    "hashtags": [
+      {
+        "text": "whatever",
+        "indices": [
+          63,
+          72
+        ]
+      }
+    ],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Aug 07 15:52:51 +0000 2014"
+  },
+  {
+    "id_str": "497409279574687745",
+    "chars": 69,
+    "words": 12,
+    "mentions": [
+      {
+        "screen_name": "theafrix",
+        "name": "Tom Wysocki",
+        "id": 481943747,
+        "id_str": "481943747",
+        "indices": [
+          0,
+          9
+        ]
+      }
+    ],
+    "hashtags": [
+      {
+        "text": "whatever",
+        "indices": [
+          63,
+          72
+        ]
+      }
+    ],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Aug 07 15:49:48 +0000 2014"
+  },
+  {
+    "id_str": "497294659828580352",
+    "chars": 16,
+    "words": 2,
+    "mentions": [
+      {
+        "screen_name": "guiseiz",
+        "name": "Gui Seiz",
+        "id": 9594972,
+        "id_str": "9594972",
+        "indices": [
+          0,
+          8
+        ]
+      }
+    ],
+    "hashtags": [
+      {
+        "text": "aaaaaAAAAAAA",
+        "indices": [
+          63,
+          72
+        ]
+      }
+    ],
+    "media": [],
+    "retweets": 0,
+    "favourites": "",
+    "created_at": "Thu Aug 07 08:14:20 +0000 2014"
+  }
+]

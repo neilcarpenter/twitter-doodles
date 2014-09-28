@@ -978,7 +978,6 @@ UserData = (function(_super) {
 
   UserData.prototype.login = function(data) {
     var h, left, opts, top, url, w;
-    return this.getTweets();
     this.setupLogin();
     url = '/auth/twitter';
     w = 680;
