@@ -85,14 +85,14 @@ function init() {
 
   function transitionIn() {
 
-    var totalTime = 3000;
+    var totalTime = 2000;
     var delay = totalTime / data.length;
 
     path
       .transition()
       // .delay(function(d, i) { return i * delay; })
       .delay(function(d, i) {
-        return Math.random()*3000;
+        return Math.random()*totalTime;
       })
       .duration(1000)
       .ease('elastic')
