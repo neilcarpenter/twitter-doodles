@@ -3,11 +3,9 @@ var SAMPLE_SIZE = 1000;
 
 var r1, r2, r3, tweetsRaw, tweetsData, tweetsSample;
 
-r1 = $.getJSON("../../data/1000/tweetsRaw.json", function(data) { tweetsRaw = data; });
-r2 = $.getJSON("../../data/1000/tweetsData.json", function(data) { tweetsData = data; });
-r3 = $.getJSON("../../data/1000/tweetsSample.json", function(data) { tweetsSample = data; });
+r1 = $.getJSON("../../data/1000/tweetsData.json", function(data) { tweetsData = data; });
 
-$.when(r1, r2, r3).done(init);
+$.when(r1).done(init);
 
 function init() {
 
