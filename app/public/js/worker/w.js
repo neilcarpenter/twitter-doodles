@@ -3085,6 +3085,7 @@ TweetsProcessor = (function(_super) {
     this._processHashtags = __bind(this._processHashtags, this);
     this._processMentions = __bind(this._processMentions, this);
     this._processWords = __bind(this._processWords, this);
+    this._processCommonChars = __bind(this._processCommonChars, this);
     this._processChars = __bind(this._processChars, this);
     this.process = __bind(this.process, this);
     return TweetsProcessor.__super__.constructor.apply(this, arguments);
@@ -3092,7 +3093,7 @@ TweetsProcessor = (function(_super) {
 
   TweetsProcessor.prototype.processedTweets = null;
 
-  TweetsProcessor.prototype.labels = ['chars', 'words', 'mentions', 'hashtags', 'media', 'retweets', 'favourites', 'date'];
+  TweetsProcessor.prototype.labels = ['chars', 'commonChars', 'words', 'mentions', 'hashtags', 'media', 'retweets', 'favourites', 'date'];
 
   TweetsProcessor.prototype.process = function(rawTweets) {
     var label, tweet, _i, _j, _len, _len1, _ref, _ref1;
@@ -3119,6 +3120,34 @@ TweetsProcessor = (function(_super) {
     for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
       tweet = _ref[i];
       this.processedTweets[i].chars = tweet.text.length;
+    }
+    return null;
+  };
+
+  TweetsProcessor.prototype._processCommonChars = function() {
+    var char, count, i, tweet, tweets, _commonChars, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+    tweets = this.preProcess(['removeLinks', 'toLowerCase', 'filterCommonChars']);
+    for (i = _i = 0, _len = tweets.length; _i < _len; i = ++_i) {
+      tweet = tweets[i];
+      _commonChars = {};
+      _ref = PreProcessTweets.commonChars;
+      for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+        char = _ref[_j];
+        _commonChars[char] = 0;
+      }
+      _ref1 = tweet.text.split('');
+      for (_k = 0, _len2 = _ref1.length; _k < _len2; _k++) {
+        char = _ref1[_k];
+        _commonChars[char]++;
+      }
+      this.processedTweets[i].commonChars = [];
+      for (char in _commonChars) {
+        count = _commonChars[char];
+        this.processedTweets[i].commonChars.push({
+          char: char,
+          count: count
+        });
+      }
     }
     return null;
   };
@@ -3252,8 +3281,11 @@ PreProcessTweets = (function() {
     mention: /\B@[a-z0-9_-]+/gi,
     whitespace: /\s/g,
     extraSpace: /\s{2,}/g,
-    punctuation: /[\.,-\/%\^&\*\+;:{}=\-–\?_`~()><]/g
+    punctuation: /[\.,-\/%\^&\*\+;:{}=\-–\?_`~()><]/g,
+    commonChars: /[a-z0-9 _!*,#@"'\?\.\-]/gi
   };
+
+  PreProcessTweets.commonChars = 'abcdefghijklmnopqrstuvwxyz,.\'"!?$£#@*'.split('');
 
   PreProcessTweets.removeLinks = function(tweets) {
     var tweet, url, _i, _j, _len, _len1, _ref;
@@ -3333,6 +3365,23 @@ PreProcessTweets = (function() {
     for (_i = 0, _len = tweets.length; _i < _len; _i++) {
       tweet = tweets[_i];
       tweet.text = tweet.text.toLowerCase();
+    }
+    return tweets;
+  };
+
+  PreProcessTweets.filterCommonChars = function(tweets) {
+    var allChars, char, filterChars, tweet, _i, _j, _len, _len1;
+    for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+      tweet = tweets[_i];
+      allChars = tweet.text.split('');
+      filterChars = [];
+      for (_j = 0, _len1 = allChars.length; _j < _len1; _j++) {
+        char = allChars[_j];
+        if (PreProcessTweets.commonChars.indexOf(char) > -1) {
+          filterChars.push(char);
+        }
+      }
+      tweet.text = filterChars.join('');
     }
     return tweets;
   };

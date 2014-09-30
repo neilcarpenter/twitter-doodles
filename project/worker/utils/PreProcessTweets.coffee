@@ -8,6 +8,9 @@ class PreProcessTweets
 		whitespace  : /\s/g
 		extraSpace  : /\s{2,}/g
 		punctuation : /[\.,-\/%\^&\*\+;:{}=\-–\?_`~()><]/g # rewrite this - just do regex for everything that isn't a alphabetical character...
+		commonChars : /[a-z0-9 _!*,#@"'\?\.\-]/gi
+
+	@commonChars = 'abcdefghijklmnopqrstuvwxyz,.\'"!?$£#@*'.split('')
 
 	@removeLinks = (tweets) =>
 
@@ -80,6 +83,19 @@ class PreProcessTweets
 		for tweet in tweets
 
 			tweet.text = tweet.text.toLowerCase()
+
+		tweets
+
+	@filterCommonChars = (tweets) =>
+
+		for tweet in tweets
+
+			allChars    = tweet.text.split('')
+			filterChars = []
+
+			(if @commonChars.indexOf(char) > -1 then filterChars.push(char)) for char in allChars
+
+			tweet.text = filterChars.join('')
 
 		tweets
 

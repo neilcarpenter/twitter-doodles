@@ -8,6 +8,7 @@ class TweetsProcessor extends Abstract
 
 	labels : [
 		'chars',
+		'commonChars',
 		'words',
 		'mentions',
 		'hashtags',
@@ -31,6 +32,25 @@ class TweetsProcessor extends Abstract
 	_processChars : =>
 
 		(@processedTweets[i].chars = tweet.text.length) for tweet, i in @rawTweets
+
+		null
+
+	_processCommonChars : =>
+
+		tweets = @preProcess [
+			'removeLinks',
+			'toLowerCase',
+			'filterCommonChars'
+		]
+
+		for tweet, i in tweets
+
+			_commonChars = {}
+			(_commonChars[char] = 0) for char in PreProcessTweets.commonChars
+			(_commonChars[char]++)for char in tweet.text.split('')
+
+			@processedTweets[i].commonChars = []
+			(@processedTweets[i].commonChars.push char : char, count : count) for char, count of _commonChars
 
 		null
 
