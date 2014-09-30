@@ -51,8 +51,8 @@ function init() {
       .data(pie(data))
     .enter().append("path")
       .attr("class", "solidArc")
-      .attr("fill", colorize)
-      .attr("d", arc);
+      .attr("fill", colorize);
+      // .attr("d", arc);
       // .attr("stroke", colorize);
       // .on('mouseover', onMouseOver);
       // .on('mouseout', tip.hide);
