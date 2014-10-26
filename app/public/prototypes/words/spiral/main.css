@@ -1,0 +1,148 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: orange;
+}
+
+.solidArc:hover {
+  /*fill: orangered;*/
+  fill: hsl(206, 82%, 63%);
+}
+
+.solidArc {
+    -moz-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    transition: all 0.1s;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.aster-score { 
+  line-height: 1;
+  font-weight: bold;
+  font-size: 500%;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+svg {
+  padding: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  z-index: 1;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+}
+.axis path {
+  fill: none;
+  stroke: #999;
+  stroke-dasharray: 2 3;
+}
+.axis text {
+  font-size: 13px;
+  stroke: #222;
+}
+text.title {
+  /*font-size: 24px;*/
+}
+circle.tick { 
+  fill: #f3f3f3;
+  stroke: #999;
+  stroke-dasharray: 2 3;
+}
+path.spiral {
+  fill: none;
+  stroke: #ee8d18;
+  /*stroke-width: 3px;*/
+  stroke-width: 0;
+}
+
+#refresh {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background: #53ABEE;
+  border-radius: 25px;
+  color: #fff;
+  border: none;
+  font-size: 13px;
+  font-family: "kepler-std-display",serif;
+  cursor: pointer;
+  -webkit-transform: translate(-50%, -50%) scale(0.7) rotate(-20deg);
+  -moz-transform: translate(-50%, -50%) scale(0.7) rotate(-20deg);
+  -ms-transform: translate(-50%, -50%) scale(0.7) rotate(-20deg);
+  -o-transform: translate(-50%, -50%) scale(0.7) rotate(-20deg);
+  transform: translate(-50%, -50%) scale(0.7) rotate(-20deg);
+  -webkit-transition: all 1.3s ease-in-out;
+  -moz-transition: all 1.3s ease-in-out;
+  -o-transition: all 1.3s ease-in-out;
+  transition: all 1.3s ease-in-out;
+  -webkit-transition-timing-function: cubic-bezier(1.000, -0.470, 0.065, 1.345); 
+     -moz-transition-timing-function: cubic-bezier(1.000, -0.470, 0.065, 1.345); 
+       -o-transition-timing-function: cubic-bezier(1.000, -0.470, 0.065, 1.345); 
+          transition-timing-function: cubic-bezier(1.000, -0.470, 0.065, 1.345); /* custom */
+}
+
+#refresh.show {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#refresh:focus {
+  outline: none;
+}
