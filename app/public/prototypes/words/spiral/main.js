@@ -11,7 +11,7 @@ var width = 700,
   end = 8;
 
 var CHARS_TARGET = 200;
-var MAX_TEXT_SIZE_TARGET = 50;
+var MAX_TEXT_SIZE_TARGET = 70;
 var MIN_TEXT_SIZE_TARGET = 15;
 var SPACE = 5;
 
@@ -28,7 +28,8 @@ var svg;
 
 var data;
 
-var wordsUsed = 0;
+var allWordsUsed = 0;
+var wordsUsed;
 var charsUsed;
 
 var $refresh = $('#refresh');
@@ -49,15 +50,17 @@ function init() {
 
 function buildViz() {
 
+  wordsUsed = 0;
   charsUsed = 0;
 
   data = [];
-  tweetsSample.words.counted.count.splice(0, wordsUsed);
+  tweetsSample.words.counted.count.splice(0, allWordsUsed);
 
   tweetsSample.words.counted.count.some(function(word, i) {
 
     data.push(word);
     wordsUsed++;
+    allWordsUsed++;
     charsUsed+=word.word.length;
 
     if (charsUsed >= CHARS_TARGET) return true;
@@ -107,7 +110,7 @@ function buildViz() {
 
     // console.log(d, i);
 
-    var size = textSizes.max - (i / (SAMPLE_SIZE-1))*(textSizes.max-textSizes.min);
+    var size = textSizes.max - (i / (wordsUsed-1))*(textSizes.max-textSizes.min);
     var space = size / 2;
     space = SPACE;
 
