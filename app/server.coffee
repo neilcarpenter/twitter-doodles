@@ -10,9 +10,7 @@ log = require("winston").loggers.get("app:server")
 app.set "views", __dirname
 app.engine 'html', require('ejs').renderFile
 app.set 'view engine', 'html'
-app.use(express.static(__dirname + '/public'))
 
-#See the README about ordering of middleware
 #Load the routes ("controllers" -ish)
 [
 	"./auth/twitter/routes",
@@ -20,6 +18,9 @@ app.use(express.static(__dirname + '/public'))
 	"./site/routes"
 ].forEach (routePath) ->
 	require(routePath)(app)
+
+# put this after route definition, routes take priority
+app.use(express.static(__dirname + '/public'))
 
 #FINALLY, use any error handlers
 app.use require("./middleware").notFound

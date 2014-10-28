@@ -26,8 +26,9 @@ loginPost = (req, res) ->
 		res.redirect '/login?wrong_pw'
 
 setup = (app) ->
-	app.get '/', checkAuth, home
 	app.get '/login', login
 	app.post '/login', loginPost
+	app.all '*', checkAuth
+	app.get '/', home
 
 module.exports = setup
